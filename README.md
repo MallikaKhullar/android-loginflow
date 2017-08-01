@@ -1,9 +1,9 @@
-#Assignment: Login Flow for Zolostays
+# Assignment: Login Flow for Zolostays
 
-###Summary
+### Summary
 Project Author: Mallika Priya Khullar
 
-###Libraries/Concepts/Tools used
+### Libraries/Concepts/Tools used
 MVP
 Dagger2
 Butterknife
