@@ -1,6 +1,5 @@
 package zolostays.zolo.Modules.Login;
 
-import zolostays.zolo.BasePresenter;
 import zolostays.zolo.BaseView;
 
 /**
@@ -9,7 +8,7 @@ import zolostays.zolo.BaseView;
 
 public interface LoginContract {
 
-    interface View {
+    interface View extends BaseView<Presenter>{
         void showSnackbarError();
         void hideSnackbar();
 
@@ -24,7 +23,7 @@ public interface LoginContract {
         void openProfilePage();
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter {
         void loginClicked(String phone, String pass);
 
         void createAccountClicked();

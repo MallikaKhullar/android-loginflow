@@ -2,7 +2,11 @@ package zolostays.zolo.Modules.Login;
 
 import javax.inject.Inject;
 
-import zolostays.zolo.App;
+import zolostays.zolo.Data.UserDataSource;
+import zolostays.zolo.Data.UserObject;
+import zolostays.zolo.Data.UserRepo;
+import zolostays.zolo.Utils.InputValidation;
+import zolostays.zolo.ZoloLoginMainApplication;
 import zolostays.zolo.Utils.OnLoginFinishedListener;
 
 /**
@@ -12,17 +16,35 @@ import zolostays.zolo.Utils.OnLoginFinishedListener;
 public class LoginPresenter implements LoginContract.Presenter, OnLoginFinishedListener {
 
     private LoginContract.View mLoginView;
-    private LoginInteractor interactor;
+    private UserRepo mUserRepo;
 
-    @Inject LoginPresenter(LoginContract.View loginView) {
+    @Inject LoginPresenter(UserRepo userRepo, LoginContract.View loginView) {
         this.mLoginView = loginView;
-        App.getInstance().getAppComponent().inject(this);
-        this.interactor = new LoginInteractor();
+        this.mUserRepo = userRepo;
+    }
+
+    /**
+     * This is method injection (Dagger2 will call this by default)
+     * Safe to use because method injection is the last type of injection called
+     */
+    @Inject
+    void setupListeners() {
+        mLoginView.setPresenter(this);
     }
 
     @Override
-    public void loginClicked(String phone, String pass) {
-        interactor.matchLoginPassword(this, phone, pass);
+    public void loginClicked(String email, String pass) {
+        mUserRepo.getUserWithEmail(email, new UserDataSource.GetUserCallback() {
+            @Override
+            public void onUserFound(UserObject user) {
+                mLoginView.openProfilePage();
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mLoginView.showSnackbarError();
+            }
+        });
     }
 
     @Override
@@ -46,16 +68,11 @@ public class LoginPresenter implements LoginContract.Presenter, OnLoginFinishedL
     }
 
     @Override
-    public void inputModified(String phone, String pass) {
+    public void inputModified(String email, String pass) {
         mLoginView.hideSnackbar();
-        switch(interactor.validateInput(phone, pass)) {
+        switch(InputValidation.validateInput(email, pass)) {
             case PASSWORD: mLoginView.showErrorOnPassword(); break;
             case EMAIL: mLoginView.showErrorOnEmail(); break;
         }
-    }
-
-    @Override
-    public void start() {
-
     }
 }

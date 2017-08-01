@@ -1,9 +1,7 @@
 package zolostays.zolo.Modules.Login;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,11 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import zolostays.zolo.AppComponent;
+import zolostays.zolo.ApplicationComponent;
 import zolostays.zolo.BaseActivity;
-import zolostays.zolo.Modules.PasswordReset.ForgotPasswordActivity;
 import zolostays.zolo.Modules.Profile.ProfileActivity;
-import zolostays.zolo.Modules.Registration.RegistrationActivity;
 import zolostays.zolo.R;
 import zolostays.zolo.R2;
 
@@ -48,9 +44,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    protected void setupComponent(AppComponent appComponent) {
-        DaggerLoginComponent.builder()
-                .appComponent(appComponent)
+    protected void setupComponent(ApplicationComponent applicationComponent) {
+        DaggerLoginActivityComponent.builder()
+                .appComponent(applicationComponent)
                 .loginModule(new LoginModule(this))
                 .build()
                 .inject(this);
@@ -114,7 +110,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void dismissDialog() {
         if(mDialog!=null && mDialog.isShowing() && !LoginActivity.this.isFinishing()) mDialog.dismiss();
-
     }
 
     @Override
