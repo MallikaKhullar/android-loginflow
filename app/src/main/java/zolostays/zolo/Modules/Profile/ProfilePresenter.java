@@ -3,7 +3,6 @@ package zolostays.zolo.Modules.Profile;
 import javax.inject.Inject;
 
 import zolostays.zolo.Modules.Registration.RegistrationContract;
-import zolostays.zolo.Modules.Registration.RegistrationInteractor;
 import zolostays.zolo.Utils.OnLoginFinishedListener;
 
 /**
@@ -16,7 +15,6 @@ public class ProfilePresenter implements ProfileContract.Presenter, OnLoginFinis
     @Inject
     ProfilePresenter(ProfileContract.View view) {
 //        this.view = loginView;
-//        this.interactor = new RegistrationInteractor();
     }
     @Override
     public void start() {

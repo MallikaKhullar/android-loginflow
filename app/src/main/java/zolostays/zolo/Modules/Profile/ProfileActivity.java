@@ -1,14 +1,14 @@
 package zolostays.zolo.Modules.Profile;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-import zolostays.zolo.AppComponent;
+import zolostays.zolo.ApplicationComponent;
 import zolostays.zolo.BaseActivity;
+import zolostays.zolo.Modules.Registration.RegistrationModule;
 import zolostays.zolo.R;
 
 
-public class ProfileActivity  extends BaseActivity {
+public class ProfileActivity  extends BaseActivity implements ProfileContract.View{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +16,14 @@ public class ProfileActivity  extends BaseActivity {
         setContentView(R.layout.activity_profile);
     }
 
-    @Override
-    protected void setupComponent(AppComponent appComponent) {
 
+    @Override
+    protected void setupComponent(ApplicationComponent applicationComponent) {
+        DaggerProfileActivityComponent.builder()
+                .appComponent(applicationComponent)
+                .profileModule(new ProfileModule(this))
+                .build()
+                .inject(this);
     }
+
 }
