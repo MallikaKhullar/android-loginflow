@@ -1,6 +1,7 @@
 package zolostays.zolo.Activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
@@ -25,8 +26,9 @@ public class LoginActivity extends Activity implements ILoginView {
     @BindView(R2.id.tv_forgot) TextView tvForgot;
     @BindView(R2.id.layout_register) View layoutRegister;
     @BindView(R2.id.layout_login) View layoutLogin;
-
     Snackbar bar;
+    private ProgressDialog progressDialog;
+
     LoginPresenter presenter;
 
     @Override
@@ -34,6 +36,7 @@ public class LoginActivity extends Activity implements ILoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        presenter = new LoginPresenter(this);
     }
 
     @OnClick(R.id.layout_register) public void registerClicked(View view){
@@ -99,5 +102,16 @@ public class LoginActivity extends Activity implements ILoginView {
     @Override
     public void showErrorOnPassword() {
         etPass.setError("Please enter password");
+    }
+
+    @Override
+    public void dismissDialog() {
+        if(progressDialog!=null && progressDialog.isShowing() && !LoginActivity.this.isFinishing()) progressDialog.dismiss();
+
+    }
+
+    @Override
+    public void showDialog() {
+        if(!LoginActivity.this.isFinishing()) progressDialog = ProgressDialog.show(this, "Logging in ..", null);
     }
 }

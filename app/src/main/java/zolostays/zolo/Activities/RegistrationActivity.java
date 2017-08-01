@@ -3,11 +3,8 @@ package zolostays.zolo.Activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,9 +25,9 @@ public class RegistrationActivity extends Activity implements IRegistrationView 
     @BindView(R2.id.et_name) EditText etName;
     @BindView(R2.id.et_email) EditText etEmail;
     @BindView(R2.id.tv_login) TextView tvLogin;
+    private ProgressDialog progressDialog;
 
     RegistrationPresenter presenter;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +60,7 @@ public class RegistrationActivity extends Activity implements IRegistrationView 
 
     @Override
     public void openLoginPage() {
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Override
@@ -96,7 +92,6 @@ public class RegistrationActivity extends Activity implements IRegistrationView 
     @Override
     public void showErrorOnEmail() {
         etEmail.setError("Please enter a valid email");
-
     }
 }
 

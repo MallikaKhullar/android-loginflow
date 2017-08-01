@@ -6,7 +6,9 @@ package zolostays.zolo.Presenter;
 
 public interface IForgotPasswordPresenter {
 
-    void resetClicked(String phone); //triggers the OTP
+    void resetClicked(String email); //triggers the OTP
 
-    void phoneModified();
+    void inputModified(String email);
+
+    void loginClicked();
 }

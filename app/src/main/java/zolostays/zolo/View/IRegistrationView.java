@@ -7,17 +7,13 @@ package zolostays.zolo.View;
 
 public interface IRegistrationView {
 
-    void openLoginPage();
-
     void showErrorOnPhone();
-
     void showErrorOnPassword();
-
     void showErrorOnName();
-
-    void dismissDialog();
+    void showErrorOnEmail();
 
     void showDialog();
+    void dismissDialog();
 
-    void showErrorOnEmail();
+    void openLoginPage();
 }
