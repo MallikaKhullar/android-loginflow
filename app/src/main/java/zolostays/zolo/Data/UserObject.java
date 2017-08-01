@@ -9,6 +9,15 @@ public class UserObject {
     String email;
     String phone;
     String pass;
+    Long id;
+
+    public UserObject() {
+    }
+
+    public UserObject(String email, String pass) {
+        this.email = name;
+        this.pass = pass;
+    }
 
     public String getName() {
         return name;
@@ -40,5 +49,13 @@ public class UserObject {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
