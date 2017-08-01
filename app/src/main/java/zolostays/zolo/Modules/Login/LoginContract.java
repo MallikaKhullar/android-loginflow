@@ -14,6 +14,7 @@ public interface LoginContract {
 
         void showErrorOnEmail();
         void showErrorOnPassword();
+        void clearErrors();
 
         void showDialog();
         void dismissDialog();
@@ -31,6 +32,5 @@ public interface LoginContract {
         void forgotPasswordClicked();
 
         void inputModified(String phone, String pass);
-
     }
 }

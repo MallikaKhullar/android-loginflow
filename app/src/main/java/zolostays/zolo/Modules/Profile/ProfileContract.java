@@ -7,7 +7,7 @@ package zolostays.zolo.Modules.Profile;
 public interface ProfileContract {
 
     interface View{
-        //TODO: fill this in
+        void clearErrors();
     }
 
     interface Presenter {

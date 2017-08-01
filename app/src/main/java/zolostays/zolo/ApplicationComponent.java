@@ -1,9 +1,11 @@
 package zolostays.zolo;
 
-import dagger.Component;
-import zolostays.zolo.Data.RepoModule;
-import zolostays.zolo.Data.UserRepo;
+import android.content.Context;
+import android.content.SharedPreferences;
 
+import dagger.Component;
+import zolostays.zolo.Data.Repo.RepoModule;
+import zolostays.zolo.Data.Repo.UserRepo;
 
 import javax.inject.Singleton;
 /**
@@ -16,4 +18,6 @@ import javax.inject.Singleton;
 
 public interface ApplicationComponent {
     UserRepo getUserRepo();
+    SharedPreferences sharedPreferences();
+    Context context();
 }

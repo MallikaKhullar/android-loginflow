@@ -1,4 +1,4 @@
-package zolostays.zolo.Data;
+package zolostays.zolo.Data.Repo;
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.

@@ -2,6 +2,7 @@ package zolostays.zolo.Modules.Login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,7 +26,7 @@ import static dagger.internal.Preconditions.checkNotNull;
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    @Inject LoginPresenter mPresenter;
+    @Inject LoginContract.Presenter mPresenter;
 
     /*--------Views-------*/
     @BindView(R2.id.et_email) private EditText etEmail;
@@ -41,13 +42,20 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        ((TextView)layoutRegister.findViewById(R.id.text)).setText("Create Account");
+        ((TextView)layoutLogin.findViewById(R.id.text)).setText("Log In");
+    }
+
+    @Override
+    public void setPresenter(LoginContract.Presenter presenter) {
+        this.mPresenter = checkNotNull(presenter);
     }
 
     @Override
     protected void setupComponent(ApplicationComponent applicationComponent) {
         DaggerLoginActivityComponent.builder()
-                .appComponent(applicationComponent)
-                .loginModule(new LoginModule(this))
+                .applicationComponent(applicationComponent)
+                .loginModule(new LoginModule(LoginActivity.this, this))
                 .build()
                 .inject(this);
     }
@@ -82,7 +90,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
 
-    /*--------Errors-------*/
+    /*--------UI changes-------*/
     @Override
     public void showErrorOnEmail() {
         etEmail.setError("Please enter valid email");
@@ -91,6 +99,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void showErrorOnPassword() {
         etPass.setError("Please enter password");
+    }
+
+    @Override
+    public void clearErrors() {
+        etEmail.setError(null);
+        etPass.setError(null);
     }
 
     @Override
@@ -119,7 +133,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
 
 
-    /*--------Opening Activities-------*/
+    /*--------Flow-------*/
     @Override
     public void openRegistrationPage() {
         Intent i = new Intent(this, zolostays.zolo.Modules.Registration.RegistrationActivity.class);

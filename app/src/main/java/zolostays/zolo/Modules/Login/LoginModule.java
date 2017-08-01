@@ -1,9 +1,12 @@
 package zolostays.zolo.Modules.Login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import dagger.Module;
 import dagger.Provides;
-import zolostays.zolo.Modules.Profile.ProfileContract;
-import zolostays.zolo.Modules.Profile.ProfilePresenter;
+import zolostays.zolo.Data.Repo.UserRepo;
+import zolostays.zolo.Utils.ActivityScope;
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.
@@ -11,18 +14,22 @@ import zolostays.zolo.Modules.Profile.ProfilePresenter;
 
 @Module
 public class LoginModule {
-
+    private final Context mContext;
     private final LoginContract.View mView;
-
-    public LoginModule(LoginContract.View view) {
+    public LoginModule(Context context, LoginContract.View view) {
+        mContext = context;
         mView = view;
     }
 
-    @Provides LoginContract.View getView() {
+    @Provides LoginContract.View provideView() {
         return mView;
     }
 
-    @Provides public LoginPresenter providePresenter(LoginContract.View view) {
-        return new LoginPresenter(view);
+    @ActivityScope @Provides LoginPresenter providePresenter(SharedPreferences sprefs, UserRepo repo, LoginContract.View view) {
+        return new LoginPresenter(repo, sprefs, view);
+    }
+
+    @ActivityScope @Provides public Context context() {
+        return mContext;
     }
 }

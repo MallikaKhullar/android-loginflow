@@ -21,8 +21,8 @@ public class ProfileModule {
         return mView;
     }
 
-    @Provides
-    public ProfilePresenter providePresenter(ProfileContract.View view) {
-        return new ProfilePresenter(view);
-    }
+//    @Provides
+//    public ProfilePresenter providePresenter(ProfileContract.View view) {
+//        return new ProfilePresenter(view);
+//    }
 }

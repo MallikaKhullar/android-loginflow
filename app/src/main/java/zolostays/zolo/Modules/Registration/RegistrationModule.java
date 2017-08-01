@@ -21,8 +21,8 @@ public class RegistrationModule {
         return mView;
     }
 
-    @Provides
-    public RegistrationPresenter providePresenter(RegistrationContract.View view) {
-        return new RegistrationPresenter(view);
-    }
+//    @Provides
+//    public RegistrationPresenter providePresenter(RegistrationContract.View view) {
+//        return new RegistrationPresenter(view);
+//    }
 }

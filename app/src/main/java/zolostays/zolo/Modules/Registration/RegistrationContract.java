@@ -12,6 +12,7 @@ public interface RegistrationContract {
         void showErrorOnPassword();
         void showErrorOnName();
         void showErrorOnEmail();
+        void clearErrors();
 
         //dialogs
         void showDialog();

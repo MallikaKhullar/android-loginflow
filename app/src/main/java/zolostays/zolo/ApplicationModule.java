@@ -4,8 +4,6 @@ import android.content.SharedPreferences;
 
 import dagger.Module;
 import dagger.Provides;
-import zolostays.zolo.Utils.ApplicationContext;
-
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.
@@ -27,4 +25,6 @@ public class ApplicationModule {
     @Provides SharedPreferences provideSharedPrefs() {
         return mContext.getSharedPreferences("login-prefs", Context.MODE_PRIVATE);
     }
+
+
 }

@@ -1,5 +1,7 @@
 package zolostays.zolo.Modules.PasswordReset;
 
+import android.content.Context;
+
 import dagger.Component;
 import zolostays.zolo.ApplicationComponent;
 import zolostays.zolo.Utils.ActivityScope;
@@ -12,4 +14,5 @@ import zolostays.zolo.Utils.ActivityScope;
 @Component(dependencies = ApplicationComponent.class, modules = ForgotPassModule.class)
 public interface ForgotPassActivityComponent {
     void inject(ForgotPasswordActivity activity);
+    Context context();
 }

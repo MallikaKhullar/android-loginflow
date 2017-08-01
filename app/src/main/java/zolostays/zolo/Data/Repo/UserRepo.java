@@ -1,7 +1,6 @@
-package zolostays.zolo.Data;
+package zolostays.zolo.Data.Repo;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

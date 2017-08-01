@@ -1,14 +1,21 @@
 package zolostays.zolo.Modules.PasswordReset;
 
+import zolostays.zolo.BaseView;
+import zolostays.zolo.Modules.Login.LoginContract;
+
 /**
  * Created by mallikapriyakhullar on 01/08/17.
  */
 
 public interface ForgotPassContract {
 
-    interface View{
+    interface View extends BaseView<Presenter> {
         //error
         void showErrorOnEmail();
+        void clearErrors();
+        void showSnackbarError();
+        void hideSnackbar();
+
 
         //dialogs
         void showDialog();

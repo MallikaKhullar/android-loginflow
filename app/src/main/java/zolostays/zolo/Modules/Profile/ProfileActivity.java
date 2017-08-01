@@ -2,6 +2,7 @@ package zolostays.zolo.Modules.Profile;
 
 import android.os.Bundle;
 
+import butterknife.ButterKnife;
 import zolostays.zolo.ApplicationComponent;
 import zolostays.zolo.BaseActivity;
 import zolostays.zolo.Modules.Registration.RegistrationModule;
@@ -14,13 +15,15 @@ public class ProfileActivity  extends BaseActivity implements ProfileContract.Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        ButterKnife.bind(this);
+
     }
 
 
     @Override
     protected void setupComponent(ApplicationComponent applicationComponent) {
         DaggerProfileActivityComponent.builder()
-                .appComponent(applicationComponent)
+                .applicationComponent(applicationComponent)
                 .profileModule(new ProfileModule(this))
                 .build()
                 .inject(this);

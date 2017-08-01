@@ -2,13 +2,13 @@ package zolostays.zolo.Modules.Registration;
 
 import javax.inject.Inject;
 
-import zolostays.zolo.Utils.OnLoginFinishedListener;
+import zolostays.zolo.Utils.OnProcessFinishedCallback;
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.
  */
 
-public class RegistrationPresenter implements RegistrationContract.Presenter, OnLoginFinishedListener {
+public class RegistrationPresenter implements RegistrationContract.Presenter, OnProcessFinishedCallback {
 
     private RegistrationContract.View view;
 

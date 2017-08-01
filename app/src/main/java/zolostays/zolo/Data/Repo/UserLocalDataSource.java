@@ -1,4 +1,4 @@
-package zolostays.zolo.Data;
+package zolostays.zolo.Data.Repo;
 
 import android.content.ContentValues;
 import android.content.Context;

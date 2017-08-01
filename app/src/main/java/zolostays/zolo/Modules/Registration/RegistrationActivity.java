@@ -30,6 +30,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     @BindView(R2.id.et_name) EditText etName;
     @BindView(R2.id.et_email) EditText etEmail;
     @BindView(R2.id.tv_login) TextView tvLogin;
+    @BindView(R2.id.layout_register) private View layoutRegister;
     private ProgressDialog progressDialog;
 
 
@@ -38,12 +39,13 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
+        ((TextView)layoutRegister.findViewById(R.id.text)).setText("Register");
     }
 
     @Override
     protected void setupComponent(ApplicationComponent applicationComponent) {
         DaggerRegistrationActivityComponent.builder()
-                .appComponent(applicationComponent)
+                .applicationComponent(applicationComponent)
                 .registrationModule(new RegistrationModule(this))
                 .build()
                 .inject(this);
@@ -71,7 +73,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
                 etName.getText().toString());
     }
 
-
     @Override
     public void openLoginPage() {
         startActivity(new Intent(this, LoginActivity.class));
@@ -93,9 +94,13 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
     @Override
+    public void showErrorOnEmail() {
+        etEmail.setError("Please enter a valid email");
+    }
+
+    @Override
     public void dismissDialog() {
         if(progressDialog!=null && progressDialog.isShowing() && !RegistrationActivity.this.isFinishing()) progressDialog.dismiss();
-
     }
 
     @Override
@@ -104,8 +109,11 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
     @Override
-    public void showErrorOnEmail() {
-        etEmail.setError("Please enter a valid email");
+    public void clearErrors() {
+        etEmail.setError(null);
+        etName.setError(null);
+        etPass.setError(null);
+        etPhone.setError(null);
     }
 }
 

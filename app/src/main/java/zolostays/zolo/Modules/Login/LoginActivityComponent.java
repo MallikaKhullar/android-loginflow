@@ -1,5 +1,7 @@
 package zolostays.zolo.Modules.Login;
 
+import android.content.Context;
+
 import dagger.Component;
 import zolostays.zolo.ApplicationComponent;
 import zolostays.zolo.Utils.ActivityScope;
@@ -12,5 +14,6 @@ import zolostays.zolo.Utils.ActivityScope;
 @Component(dependencies = ApplicationComponent.class, modules = LoginModule.class)
 public interface LoginActivityComponent {
     void inject(LoginActivity activity);
+    Context context();
 }
 

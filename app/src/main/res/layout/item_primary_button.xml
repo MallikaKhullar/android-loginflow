@@ -8,6 +8,7 @@
         android:layout_height="50dp"
         android:textAllCaps="true"
         android:textStyle="bold"
+        android:id="@+id/text"
         android:textColor="@color/black"
         android:background="@color/ColorSecondary"
         android:gravity="center"/>

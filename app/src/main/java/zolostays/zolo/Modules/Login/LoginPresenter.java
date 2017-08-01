@@ -1,78 +1,85 @@
 package zolostays.zolo.Modules.Login;
 
+import android.content.SharedPreferences;
+
 import javax.inject.Inject;
 
-import zolostays.zolo.Data.UserDataSource;
-import zolostays.zolo.Data.UserObject;
-import zolostays.zolo.Data.UserRepo;
+import zolostays.zolo.Data.Repo.UserDataSource;
+import zolostays.zolo.Data.Repo.UserObject;
+import zolostays.zolo.Data.Repo.UserRepo;
 import zolostays.zolo.Utils.InputValidation;
-import zolostays.zolo.ZoloLoginMainApplication;
-import zolostays.zolo.Utils.OnLoginFinishedListener;
+import zolostays.zolo.Utils.OnProcessFinishedCallback;
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.
  */
 
-public class LoginPresenter implements LoginContract.Presenter, OnLoginFinishedListener {
+public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishedCallback {
 
-    private LoginContract.View mLoginView;
-    private UserRepo mUserRepo;
+    LoginContract.View mView;
+    UserDataSource mUserRepo;
+    SharedPreferences mSharedPreferences;
 
-    @Inject LoginPresenter(UserRepo userRepo, LoginContract.View loginView) {
-        this.mLoginView = loginView;
+    @Inject LoginPresenter(UserRepo userRepo, SharedPreferences sPrefs, LoginContract.View loginView) {
+        this.mView = loginView;
         this.mUserRepo = userRepo;
+        this.mSharedPreferences = sPrefs;
     }
 
     /**
      * This is method injection (Dagger2 will call this by default)
      * Safe to use because method injection is the last type of injection called
      */
-    @Inject
-    void setupListeners() {
-        mLoginView.setPresenter(this);
+    @Inject void setupListeners() {
+        mView.setPresenter(this);
     }
 
     @Override
     public void loginClicked(String email, String pass) {
+
+        switch(InputValidation.validateInput(email, pass)) {
+            case PASSWORD: mView.showErrorOnPassword(); return;
+            case EMAIL: mView.showErrorOnEmail(); return;
+        }
+
         mUserRepo.getUserWithEmail(email, new UserDataSource.GetUserCallback() {
             @Override
             public void onUserFound(UserObject user) {
-                mLoginView.openProfilePage();
+                mSharedPreferences.edit().putBoolean("logged-in", true).apply();
+                mView.openProfilePage();
             }
 
             @Override
             public void onDataNotAvailable() {
-                mLoginView.showSnackbarError();
+                mView.showSnackbarError();
+                mSharedPreferences.edit().putBoolean("logged-in", false).apply();
             }
         });
     }
 
     @Override
     public void createAccountClicked() {
-        mLoginView.openRegistrationPage();
+        mView.openRegistrationPage();
     }
 
     @Override
     public void forgotPasswordClicked() {
-        mLoginView.openForgotPassPage();
+        mView.openForgotPassPage();
     }
 
     @Override
     public void onError() {
-        mLoginView.showSnackbarError();
+        mView.showSnackbarError();
     }
 
     @Override
     public void onSuccess() {
-        mLoginView.openProfilePage();
+        mView.openProfilePage();
     }
 
     @Override
     public void inputModified(String email, String pass) {
-        mLoginView.hideSnackbar();
-        switch(InputValidation.validateInput(email, pass)) {
-            case PASSWORD: mLoginView.showErrorOnPassword(); break;
-            case EMAIL: mLoginView.showErrorOnEmail(); break;
-        }
+        mView.hideSnackbar();
+        mView.clearErrors();
     }
 }
