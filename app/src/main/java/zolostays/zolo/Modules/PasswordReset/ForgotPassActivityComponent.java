@@ -14,5 +14,4 @@ import zolostays.zolo.Utils.ActivityScope;
 @Component(dependencies = ApplicationComponent.class, modules = ForgotPassModule.class)
 public interface ForgotPassActivityComponent {
     void inject(ForgotPasswordActivity activity);
-    Context context();
 }

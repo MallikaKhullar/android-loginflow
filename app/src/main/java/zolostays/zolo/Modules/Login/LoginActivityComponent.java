@@ -14,6 +14,5 @@ import zolostays.zolo.Utils.ActivityScope;
 @Component(dependencies = ApplicationComponent.class, modules = LoginModule.class)
 public interface LoginActivityComponent {
     void inject(LoginActivity activity);
-    Context context();
 }
 

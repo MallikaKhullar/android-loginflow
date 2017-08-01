@@ -28,8 +28,4 @@ public class LoginModule {
     @ActivityScope @Provides LoginPresenter providePresenter(SharedPreferences sprefs, UserRepo repo, LoginContract.View view) {
         return new LoginPresenter(repo, sprefs, view);
     }
-
-    @ActivityScope @Provides public Context context() {
-        return mContext;
-    }
 }

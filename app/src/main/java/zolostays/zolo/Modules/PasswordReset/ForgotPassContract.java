@@ -9,7 +9,7 @@ import zolostays.zolo.Modules.Login.LoginContract;
 
 public interface ForgotPassContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View {
         //error
         void showErrorOnEmail();
         void clearErrors();

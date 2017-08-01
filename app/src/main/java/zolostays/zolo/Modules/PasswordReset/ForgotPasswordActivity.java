@@ -28,7 +28,7 @@ import static dagger.internal.Preconditions.checkNotNull;
 
 public class ForgotPasswordActivity extends BaseActivity implements ForgotPassContract.View {
 
-    @Inject ForgotPassContract.Presenter mPresenter;
+    @Inject ForgotPasswordPresenter mPresenter;
 
     /*--------Views-------*/
     @BindView(R2.id.et_email) EditText etEmail;
@@ -50,17 +50,10 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPassCo
     protected void setupComponent(ApplicationComponent applicationComponent) {
         DaggerForgotPassActivityComponent.builder()
                 .applicationComponent(applicationComponent)
-                .forgotPassModule(new ForgotPassModule(this))
+                .forgotPassModule(new ForgotPassModule(ForgotPasswordActivity.this, this))
                 .build()
                 .inject(this);
     }
-
-    @Override
-    public void setPresenter(ForgotPassContract.Presenter mPresenter) {
-        this.mPresenter = checkNotNull(mPresenter);
-    }
-
-
 
     /*--------Events-------*/
     @OnClick(R.id.layout_reset) public void resetClicked(View view){

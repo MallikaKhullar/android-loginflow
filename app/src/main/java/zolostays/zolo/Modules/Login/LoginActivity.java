@@ -26,7 +26,7 @@ import static dagger.internal.Preconditions.checkNotNull;
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    @Inject LoginContract.Presenter mPresenter;
+    @Inject LoginPresenter mPresenter;
 
     /*--------Views-------*/
     @BindView(R2.id.et_email) private EditText etEmail;
@@ -44,11 +44,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         ButterKnife.bind(this);
         ((TextView)layoutRegister.findViewById(R.id.text)).setText("Create Account");
         ((TextView)layoutLogin.findViewById(R.id.text)).setText("Log In");
-    }
-
-    @Override
-    public void setPresenter(LoginContract.Presenter presenter) {
-        this.mPresenter = checkNotNull(presenter);
     }
 
     @Override

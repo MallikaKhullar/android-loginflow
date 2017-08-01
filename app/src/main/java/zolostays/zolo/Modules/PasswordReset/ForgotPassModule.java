@@ -33,10 +33,6 @@ public class ForgotPassModule {
         return mView;
     }
 
-    @ActivityScope @Provides public Context context() {
-        return mContext;
-    }
-
     @Provides @ActivityScope public ForgotPasswordPresenter providePresenter(EmailService emailService, UserRepo repo, ForgotPassContract.View view) {
         return new ForgotPasswordPresenter(emailService, repo, view);
     }

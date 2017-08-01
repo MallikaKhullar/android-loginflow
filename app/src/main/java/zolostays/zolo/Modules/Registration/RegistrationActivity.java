@@ -23,7 +23,7 @@ import zolostays.zolo.R2;
 
 public class RegistrationActivity extends BaseActivity implements RegistrationContract.View {
 
-    @Inject RegistrationContract.Presenter mRegistrationPresenter;
+    @Inject RegistrationPresenter mRegistrationPresenter;
 
     @BindView(R2.id.et_phone) EditText etPhone;
     @BindView(R2.id.et_password) EditText etPass;

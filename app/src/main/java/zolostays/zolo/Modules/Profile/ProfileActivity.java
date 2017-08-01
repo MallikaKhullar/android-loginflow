@@ -29,4 +29,8 @@ public class ProfileActivity  extends BaseActivity implements ProfileContract.Vi
                 .inject(this);
     }
 
+    @Override
+    public void clearErrors() {
+
+    }
 }

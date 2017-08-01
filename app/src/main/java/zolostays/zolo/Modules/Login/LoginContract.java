@@ -8,7 +8,7 @@ import zolostays.zolo.BaseView;
 
 public interface LoginContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View {
         void showSnackbarError();
         void hideSnackbar();
 
