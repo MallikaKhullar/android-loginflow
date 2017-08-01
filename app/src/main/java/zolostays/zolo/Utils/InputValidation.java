@@ -34,4 +34,18 @@ public class InputValidation {
     public static boolean doPasswordsMatch(String value1, String value2) {
         return value1.trim().contentEquals(value2.trim());
     }
+
+    public static InvalidType validateInput(String phone, String email, String name, String password) {
+        if (!isValidEmail(email)) return InvalidType.EMAIL;
+        if (!isValidName(name)) return InvalidType.NAME;
+        if (!isValidPhone(phone)) return InvalidType.PHONE;
+        if (!isValidPassword(password)) return InvalidType.PASSWORD;
+        return InvalidType.VALID;
+    }
+
+    public static InvalidType validateInput(String email, String password) {
+        if (!isValidEmail(email)) return InvalidType.EMAIL;
+        if (!isValidPassword(password)) return InvalidType.PASSWORD;
+        return InvalidType.VALID;
+    }
 }
