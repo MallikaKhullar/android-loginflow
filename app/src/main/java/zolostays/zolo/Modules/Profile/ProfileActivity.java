@@ -1,19 +1,23 @@
-package zolostays.zolo.Activities;
+package zolostays.zolo.Modules.Profile;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import zolostays.zolo.AppComponent;
+import zolostays.zolo.BaseActivity;
 import zolostays.zolo.R;
 
 
-public class ProfileActivity  extends Activity {
+public class ProfileActivity  extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+    }
+
+    @Override
+    protected void setupComponent(AppComponent appComponent) {
+
     }
 }

@@ -8,22 +8,22 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".Modules.Login.LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name=".Activities.ProfileActivity"
+            android:name=".Modules.Profile.ProfileActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_profile" >
         </activity>
         <activity
-            android:name=".Activities.ForgotPasswordActivity"
+            android:name=".Modules.PasswordReset.ForgotPasswordActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_forgot_password" >
         </activity>
         <activity
-            android:name=".Activities.RegistrationActivity"
+            android:name=".Modules.Registration.RegistrationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_registration" >
         </activity>

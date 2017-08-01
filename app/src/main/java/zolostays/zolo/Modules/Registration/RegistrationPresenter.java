@@ -1,22 +1,20 @@
-package zolostays.zolo.Presenter;
+package zolostays.zolo.Modules.Registration;
 
-import zolostays.zolo.Interactor.IRegistrationInteractor;
-import zolostays.zolo.Interactor.LoginInteractor;
-import zolostays.zolo.Interactor.RegistrationInteractor;
+import javax.inject.Inject;
+
+import zolostays.zolo.App;
 import zolostays.zolo.Utils.OnLoginFinishedListener;
-import zolostays.zolo.View.ILoginView;
-import zolostays.zolo.View.IRegistrationView;
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.
  */
 
-public class RegistrationPresenter implements IRegistrationPresenter, OnLoginFinishedListener {
+public class RegistrationPresenter implements RegistrationContract.Presenter, OnLoginFinishedListener {
 
-    private IRegistrationView view;
+    private RegistrationContract.View view;
     private RegistrationInteractor interactor;
 
-    public RegistrationPresenter(IRegistrationView loginView) {
+    @Inject RegistrationPresenter(RegistrationContract.View loginView) {
         this.view = loginView;
         this.interactor = new RegistrationInteractor();
     }
@@ -50,5 +48,10 @@ public class RegistrationPresenter implements IRegistrationPresenter, OnLoginFin
     @Override
     public void loginClicked() {
         view.openLoginPage();
+    }
+
+    @Override
+    public void start() {
+
     }
 }

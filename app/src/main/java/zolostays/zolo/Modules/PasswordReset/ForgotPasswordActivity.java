@@ -1,4 +1,4 @@
-package zolostays.zolo.Activities;
+package zolostays.zolo.Modules.PasswordReset;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,27 +9,36 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import zolostays.zolo.Presenter.ForgotPasswordPresenter;
+import zolostays.zolo.AppComponent;
+import zolostays.zolo.BaseActivity;
+import zolostays.zolo.Modules.Login.LoginActivity;
 import zolostays.zolo.R;
 import zolostays.zolo.R2;
-import zolostays.zolo.View.IForgotPasswordView;
 
 
-public class ForgotPasswordActivity extends Activity implements IForgotPasswordView {
+public class ForgotPasswordActivity extends BaseActivity implements ForgotPassContract.View {
 
     @BindView(R2.id.et_email) EditText etEmail;
     private Dialog progressDialog;
 
-    ForgotPasswordPresenter presenter;
+    @Inject ForgotPasswordPresenter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        presenter = new ForgotPasswordPresenter(this);
+        //presenter = new ForgotPasswordPresenter(this);
+    }
+
+    @Override
+    protected void setupComponent(AppComponent appComponent) {
+
     }
 
     @OnClick(R.id.layout_reset) public void resetClicked(View view){
@@ -43,12 +52,20 @@ public class ForgotPasswordActivity extends Activity implements IForgotPasswordV
         presenter.inputModified(etEmail.getText().toString());
     }
 
+    @Override
+    public void dismissDialog() {
+        if(progressDialog!=null && progressDialog.isShowing() && !ForgotPasswordActivity.this.isFinishing()) progressDialog.dismiss();
+    }
+
+    @Override
+    public void showDialog() {
+        if(!ForgotPasswordActivity.this.isFinishing()) progressDialog = ProgressDialog.show(this, "Sending you your new password ..", null);
+    }
 
     @Override
     public void showErrorOnEmail() {
         etEmail.setError("Please enter a valid email ID");
     }
-
 
     @Override
     public void openLoginPage() {
@@ -56,13 +73,7 @@ public class ForgotPasswordActivity extends Activity implements IForgotPasswordV
     }
 
     @Override
-    public void dismissDialog() {
-        if(progressDialog!=null && progressDialog.isShowing() && !ForgotPasswordActivity.this.isFinishing()) progressDialog.dismiss();
+    public void setPresenter(ForgotPassContract.Presenter presenter) {
 
-    }
-
-    @Override
-    public void showDialog() {
-        if(!ForgotPasswordActivity.this.isFinishing()) progressDialog = ProgressDialog.show(this, "Sending you your new password ..", null);
     }
 }

@@ -1,4 +1,4 @@
-package zolostays.zolo.Activities;
+package zolostays.zolo.Modules.Registration;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,13 +12,14 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import zolostays.zolo.Presenter.RegistrationPresenter;
+import zolostays.zolo.AppComponent;
+import zolostays.zolo.BaseActivity;
+import zolostays.zolo.Modules.Login.LoginActivity;
 import zolostays.zolo.R;
 import zolostays.zolo.R2;
-import zolostays.zolo.View.IRegistrationView;
 
 
-public class RegistrationActivity extends Activity implements IRegistrationView {
+public class RegistrationActivity extends BaseActivity implements RegistrationContract.View {
 
     @BindView(R2.id.et_phone) EditText etPhone;
     @BindView(R2.id.et_password) EditText etPass;
@@ -33,6 +34,11 @@ public class RegistrationActivity extends Activity implements IRegistrationView 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+    }
+
+    @Override
+    protected void setupComponent(AppComponent appComponent) {
+
     }
 
     @OnClick(R.id.layout_register)
@@ -92,6 +98,11 @@ public class RegistrationActivity extends Activity implements IRegistrationView 
     @Override
     public void showErrorOnEmail() {
         etEmail.setError("Please enter a valid email");
+    }
+
+    @Override
+    public void setPresenter(RegistrationContract.Presenter presenter) {
+
     }
 }
 

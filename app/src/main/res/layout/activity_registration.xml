@@ -56,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="20"
+                android:maxLines="1"
                 android:textColorHint="@color/ColorPrimary"
                 android:inputType="textEmailAddress"
                 android:hint="PHONE NUMBER" />
@@ -71,7 +72,8 @@
 
             <EditText android:id="@+id/et_email"
                 android:layout_width="match_parent"
-                android:maxLength="20"
+                android:maxLength="30"
+                android:lines="1"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/ColorPrimary"
                 android:inputType="textEmailAddress"
@@ -90,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="20"
+                android:maxLines="1"
                 android:textColorHint="@color/ColorPrimary"
                 android:inputType="textEmailAddress"
                 android:hint="NAME" />
@@ -108,6 +111,7 @@
             <EditText android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:maxLength="20"
                 android:textColorHint="@color/ColorPrimary"
                 android:inputType="textPassword"

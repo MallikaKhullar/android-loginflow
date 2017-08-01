@@ -1,17 +1,17 @@
-package zolostays.zolo.Interactor;
+package zolostays.zolo.Modules.Login;
 
 import android.os.Handler;
 
 import zolostays.zolo.Utils.InvalidType;
 import zolostays.zolo.Utils.OnLoginFinishedListener;
 
-import static zolostays.zolo.Utils.ValidityUtils.isValidEmail;
+import static zolostays.zolo.Utils.InputValidation.isValidEmail;
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.
  */
 
-public class LoginInteractor implements ILoginInteractor {
+public class LoginInteractor {
 
     public LoginInteractor() { }
 
