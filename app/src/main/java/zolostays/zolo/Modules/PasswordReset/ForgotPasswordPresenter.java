@@ -2,8 +2,7 @@ package zolostays.zolo.Modules.PasswordReset;
 
 import javax.inject.Inject;
 
-import zolostays.zolo.App;
-import zolostays.zolo.Modules.PasswordReset.ForgotPassContract;
+import zolostays.zolo.ZoloLoginMainApplication;
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.
@@ -15,7 +14,7 @@ public class ForgotPasswordPresenter implements ForgotPassContract.Presenter {
 
     @Inject ForgotPasswordPresenter(ForgotPassContract.View loginView) {
         this.view = loginView;
-        App.getInstance().getAppComponent().inject(this);
+        ZoloLoginMainApplication.getInstance().getAppComponent().inject(this);
     }
 
 

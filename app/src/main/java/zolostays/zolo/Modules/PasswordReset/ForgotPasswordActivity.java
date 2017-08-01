@@ -1,6 +1,5 @@
 package zolostays.zolo.Modules.PasswordReset;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,9 +13,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import zolostays.zolo.AppComponent;
+import zolostays.zolo.ApplicationComponent;
 import zolostays.zolo.BaseActivity;
 import zolostays.zolo.Modules.Login.LoginActivity;
+import zolostays.zolo.Modules.Profile.ProfileModule;
 import zolostays.zolo.R;
 import zolostays.zolo.R2;
 
@@ -26,8 +26,7 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPassCo
     @BindView(R2.id.et_email) EditText etEmail;
     private Dialog progressDialog;
 
-    @Inject ForgotPasswordPresenter presenter;
-
+    @Inject ForgotPassContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +36,12 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPassCo
     }
 
     @Override
-    protected void setupComponent(AppComponent appComponent) {
-
+    protected void setupComponent(ApplicationComponent applicationComponent) {
+        DaggerForgotPassActivityComponent.builder()
+                .appComponent(applicationComponent)
+                .forgotPassModule(new ForgotPassModule(this))
+                .build()
+                .inject(this);
     }
 
     @OnClick(R.id.layout_reset) public void resetClicked(View view){
@@ -72,8 +75,4 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPassCo
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-    @Override
-    public void setPresenter(ForgotPassContract.Presenter presenter) {
-
-    }
 }
