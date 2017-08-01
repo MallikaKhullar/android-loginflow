@@ -5,7 +5,7 @@ package zolostays.zolo.Presenter;
  */
 
 
-public interface ProfilePresenter {
+public interface IProfilePresenter {
 
     void nameModified();
 

@@ -5,7 +5,7 @@ package zolostays.zolo.View;
  */
 
 
-public interface RegistrationView {
+public interface IRegistrationView {
 
     void showSnackbarError();
 
