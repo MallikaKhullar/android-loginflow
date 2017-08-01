@@ -1,6 +1,5 @@
 package zolostays.zolo.Modules.Registration;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +8,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import zolostays.zolo.AppComponent;
+import zolostays.zolo.ApplicationComponent;
 import zolostays.zolo.BaseActivity;
 import zolostays.zolo.Modules.Login.LoginActivity;
 import zolostays.zolo.R;
@@ -21,6 +23,8 @@ import zolostays.zolo.R2;
 
 public class RegistrationActivity extends BaseActivity implements RegistrationContract.View {
 
+    @Inject RegistrationContract.Presenter mRegistrationPresenter;
+
     @BindView(R2.id.et_phone) EditText etPhone;
     @BindView(R2.id.et_password) EditText etPass;
     @BindView(R2.id.et_name) EditText etName;
@@ -28,36 +32,40 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     @BindView(R2.id.tv_login) TextView tvLogin;
     private ProgressDialog progressDialog;
 
-    RegistrationPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        ButterKnife.bind(this);
     }
 
     @Override
-    protected void setupComponent(AppComponent appComponent) {
-
+    protected void setupComponent(ApplicationComponent applicationComponent) {
+        DaggerRegistrationActivityComponent.builder()
+                .appComponent(applicationComponent)
+                .registrationModule(new RegistrationModule(this))
+                .build()
+                .inject(this);
     }
 
     @OnClick(R.id.layout_register)
     public void registerClicked(View view){
-        presenter.registerClicked(etPhone.getText().toString(),
+        mRegistrationPresenter.registerClicked(etPhone.getText().toString(),
                         etEmail.getText().toString(),
                         etName.getText().toString(),
                         etName.getText().toString());
     }
 
     @OnClick(R.id.tv_login) public void loginClicked(View view){
-        presenter.loginClicked();
+        mRegistrationPresenter.loginClicked();
     }
 
 
     @OnTextChanged(value = {R.id.et_name, R.id.et_email, R.id.et_phone, R.id.et_password}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void afterPasswordInput(EditText editText, Editable editable) {
         editText.setError(null);
-        presenter.inputModified(etPhone.getText().toString(),
+        mRegistrationPresenter.inputModified(etPhone.getText().toString(),
                 etEmail.getText().toString(),
                 etName.getText().toString(),
                 etName.getText().toString());
@@ -98,11 +106,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     @Override
     public void showErrorOnEmail() {
         etEmail.setError("Please enter a valid email");
-    }
-
-    @Override
-    public void setPresenter(RegistrationContract.Presenter presenter) {
-
     }
 }
 

@@ -1,15 +1,12 @@
 package zolostays.zolo.Modules.Registration;
 
-import zolostays.zolo.BasePresenter;
-import zolostays.zolo.BaseView;
-
 /**
  * Created by mallikapriyakhullar on 01/08/17.
  */
 
 public interface RegistrationContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View {
         //errors
         void showErrorOnPhone();
         void showErrorOnPassword();
@@ -24,7 +21,7 @@ public interface RegistrationContract {
         void openLoginPage();
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter{
         //click events
         void registerClicked(String phone, String email, String name, String pass);
         void loginClicked();
