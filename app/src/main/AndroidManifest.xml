@@ -9,18 +9,22 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Activities.LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
             android:name=".Activities.ProfileActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_profile" >
         </activity>
         <activity
             android:name=".Activities.ForgotPasswordActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_forgot_password" >
         </activity>
         <activity
             android:name=".Activities.RegistrationActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_registration" >
         </activity>
     </application>

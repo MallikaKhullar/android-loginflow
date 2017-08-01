@@ -1,7 +1,6 @@
 package zolostays.zolo.Presenter;
 
 import zolostays.zolo.Interactor.LoginInteractor;
-import zolostays.zolo.Utils.InvalidType;
 import zolostays.zolo.Utils.OnLoginFinishedListener;
 import zolostays.zolo.View.ILoginView;
 
@@ -12,16 +11,16 @@ import zolostays.zolo.View.ILoginView;
 public class LoginPresenter implements ILoginPresenter, OnLoginFinishedListener {
 
     private ILoginView view;
-    private LoginInteractor loginInteractor;
+    private LoginInteractor interactor;
 
     public LoginPresenter(ILoginView loginView) {
         this.view = loginView;
-        this.loginInteractor = new LoginInteractor();
+        this.interactor = new LoginInteractor();
     }
 
     @Override
     public void loginClicked(String phone, String pass) {
-        loginInteractor.matchLoginPassword(this, phone, pass);
+        interactor.matchLoginPassword(this, phone, pass);
     }
 
     @Override
@@ -47,9 +46,9 @@ public class LoginPresenter implements ILoginPresenter, OnLoginFinishedListener 
     @Override
     public void inputModified(String phone, String pass) {
         view.hideSnackbar();
-        switch(loginInteractor.validateInput(phone, pass)) {
+        switch(interactor.validateInput(phone, pass)) {
             case PASSWORD: view.showErrorOnPassword(); break;
-            case PHONE: view.showErrorOnNumber(); break;
+            case EMAIL: view.showErrorOnEmail(); break;
         }
     }
 }

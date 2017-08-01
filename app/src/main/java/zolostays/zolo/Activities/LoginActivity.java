@@ -3,11 +3,8 @@ package zolostays.zolo.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,12 +14,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import zolostays.zolo.Presenter.LoginPresenter;
+import zolostays.zolo.R;
+import zolostays.zolo.R2;
 import zolostays.zolo.View.ILoginView;
 
 public class LoginActivity extends Activity implements ILoginView {
 
-    @BindView(R2.id.et_phone) EditText etPhone;
-    @BindView(R2.id.et_pass) EditText etPass;
+    @BindView(R2.id.et_email) EditText etEmail;
+    @BindView(R2.id.et_password) EditText etPass;
     @BindView(R2.id.tv_forgot) TextView tvForgot;
     @BindView(R2.id.layout_register) View layoutRegister;
     @BindView(R2.id.layout_login) View layoutLogin;
@@ -43,23 +42,23 @@ public class LoginActivity extends Activity implements ILoginView {
 
     @OnClick(R.id.layout_login) public void loginClicked(View view){
 //        progressDialog = ProgressDialog.show(this, "Authenticating...", null);
-        presenter.loginClicked(etPhone.getText().toString(), etPass.getText().toString());
+        presenter.loginClicked(etEmail.getText().toString(), etPass.getText().toString());
     }
 
     @OnClick(R.id.layout_login) public void forgotPassClicked(View view){
         presenter.forgotPasswordClicked();
     }
 
-    @OnTextChanged(value = R.id.et_phone, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    void afterPhoneInput(Editable editable) {
-        etPhone.setError(null);
-        presenter.inputModified(etPhone.getText().toString(), etPass.getText().toString());
+    @OnTextChanged(value = R.id.et_email, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    void afterEmailInput(Editable editable) {
+        etEmail.setError(null);
+        presenter.inputModified(etEmail.getText().toString(), etPass.getText().toString());
     }
 
-    @OnTextChanged(value = R.id.et_pass, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_password, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void afterPasswordInput(Editable editable) {
         etPass.setError(null);
-        presenter.inputModified(etPhone.getText().toString(), etPass.getText().toString());
+        presenter.inputModified(etEmail.getText().toString(), etPass.getText().toString());
     }
 
     @Override
@@ -71,7 +70,7 @@ public class LoginActivity extends Activity implements ILoginView {
     @Override
     public void openForgotPassPage() {
         Intent i = new Intent(this, ForgotPasswordActivity.class);
-//        i.putExtra("username", githubUsernameEditText.getText().toString());
+        i.putExtra("email", etEmail.getText().toString());
         startActivity(i);
     }
 
@@ -93,13 +92,12 @@ public class LoginActivity extends Activity implements ILoginView {
     }
 
     @Override
-    public void showErrorOnNumber() {
-        etPhone.setError("Please enter valid phone number");
+    public void showErrorOnEmail() {
+        etEmail.setError("Please enter valid email");
     }
 
     @Override
     public void showErrorOnPassword() {
         etPass.setError("Please enter password");
-
     }
 }

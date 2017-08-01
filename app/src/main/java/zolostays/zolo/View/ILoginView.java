@@ -10,7 +10,7 @@ public interface ILoginView {
 
     void hideSnackbar();
 
-    void showErrorOnNumber();
+    void showErrorOnEmail();
 
     void showErrorOnPassword();
 

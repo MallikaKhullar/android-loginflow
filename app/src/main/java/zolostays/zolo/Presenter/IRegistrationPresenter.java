@@ -6,14 +6,10 @@ package zolostays.zolo.Presenter;
 
 public interface IRegistrationPresenter {
 
-    void phoneModified();
-
-    void emailModified();
-
-    void nameModified();
-
-    void passwordModified();
+    void inputModified(String phone, String email, String name, String pass);
 
     void registerClicked(String phone, String email, String name, String pass);
+
+    void loginClicked();
 }
 
