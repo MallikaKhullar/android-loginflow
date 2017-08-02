@@ -58,7 +58,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         mRegistrationPresenter.registerClicked(etPhone.getText().toString(),
                         etEmail.getText().toString(),
                         etName.getText().toString(),
-                        etName.getText().toString());
+                        etPass.getText().toString());
     }
 
     @OnClick(R.id.tv_login) public void loginClicked(View view){

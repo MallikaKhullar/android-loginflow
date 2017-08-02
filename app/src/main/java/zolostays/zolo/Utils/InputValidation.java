@@ -18,6 +18,10 @@ public class InputValidation {
         return phone!= null && !phone.isEmpty() && phone.length() == 10;
     }
 
+    public static boolean isEmptyPassword(String phone){
+        return phone!= null && !phone.isEmpty();
+    }
+
     public static boolean isValidPassword(String password){
         if (password != null
                 && !password.isEmpty()
@@ -43,9 +47,9 @@ public class InputValidation {
         return InvalidType.VALID;
     }
 
-    public static InvalidType validateInput(String email, String password) {
+    public static InvalidType validateInputForLogin(String email, String password) {
         if (!isValidEmail(email)) return InvalidType.EMAIL;
-        if (!isValidPassword(password)) return InvalidType.PASSWORD;
+        if (!isEmptyPassword(password)) return InvalidType.PASSWORD;
         return InvalidType.VALID;
     }
 }

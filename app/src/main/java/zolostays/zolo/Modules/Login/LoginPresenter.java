@@ -35,7 +35,7 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
     @Override
     public void loginClicked(String email, String pass) {
 
-        switch(InputValidation.validateInput(email, pass)) {
+        switch(InputValidation.validateInputForLogin(email, pass)) {
             case PASSWORD: mView.showErrorOnPassword(); return;
             case EMAIL: mView.showErrorOnEmail(); return;
         }
