@@ -34,10 +34,7 @@ public class ForgotPasswordPresenter implements ForgotPassContract.Presenter, On
      * This is method injection (Dagger2 will call this by default)
      * Safe to use because method injection is the last type of injection called
      */
-    @Inject
-    void setupListeners() {
-        mView.setPresenter(this);
-    }
+
 
     @Override
     public void resetClicked(String email) {

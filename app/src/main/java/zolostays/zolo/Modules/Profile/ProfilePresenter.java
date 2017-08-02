@@ -15,10 +15,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, OnProcessFin
     ProfilePresenter(ProfileContract.View view) {
 //        this.view = loginView;
     }
-    @Override
-    public void start() {
 
-    }
 
     @Override
     public void onError() {
