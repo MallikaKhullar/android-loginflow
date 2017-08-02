@@ -12,7 +12,7 @@ public abstract class BaseActivity extends Activity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupComponent(ZoloLoginMainApplication.get(this).getApplicationComponent());
+        setupComponent(((ZoloLoginMainApplication) getApplication()).getApplicationComponent());
     }
 
     protected abstract void setupComponent(ApplicationComponent applicationComponent);
