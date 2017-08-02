@@ -8,8 +8,7 @@
         android:layout_height="50dp"
         android:textAllCaps="true"
         android:id="@+id/text"
-        android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:background="@drawable/shape_rectangle_whiteborder"
         android:gravity="center"/>
 </LinearLayout>
