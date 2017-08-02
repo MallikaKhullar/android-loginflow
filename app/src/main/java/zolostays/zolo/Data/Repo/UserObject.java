@@ -15,8 +15,15 @@ public class UserObject {
     }
 
     public UserObject(String email, String pass) {
-        this.email = name;
+        this.email = email;
         this.pass = pass;
+    }
+
+    public UserObject(String phone, String email, String name, String pass) {
+        this.email = email;
+        this.pass = pass;
+        this.name = name;
+        this.phone = phone;
     }
 
     public String getName() {

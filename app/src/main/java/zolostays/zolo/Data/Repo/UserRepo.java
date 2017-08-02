@@ -24,9 +24,9 @@ public class UserRepo implements UserDataSource {
     }
 
     @Override
-    public void createUser(@NonNull UserObject user) {
+    public long createUser(@NonNull UserObject user) {
         checkNotNull(user);
-        musersLocalDataSource.createUser(user);
+        return musersLocalDataSource.createUser(user);
     }
 
     @Override

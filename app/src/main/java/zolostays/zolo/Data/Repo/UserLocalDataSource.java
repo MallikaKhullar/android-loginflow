@@ -65,7 +65,7 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public void createUser(@NonNull UserObject user) {
+    public long createUser(@NonNull UserObject user) {
         checkNotNull(user);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -73,8 +73,9 @@ public class UserLocalDataSource implements UserDataSource {
         contentValues.put(SQLiteHandler.USER_COL_EMAIL, user.getEmail());
         contentValues.put(SQLiteHandler.USER_COL_PHONE, user.getPhone());
         contentValues.put(SQLiteHandler.USER_COL_PASS, user.getPass());
-        db.insert(SQLiteHandler.USER_TABLE_NAME, null, contentValues);
+        long success = db.insert(SQLiteHandler.USER_TABLE_NAME, null, contentValues);
         db.close();
+        return success;
     }
 
 
