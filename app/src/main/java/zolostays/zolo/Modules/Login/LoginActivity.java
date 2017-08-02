@@ -29,11 +29,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Inject LoginPresenter mPresenter;
 
     /*--------Views-------*/
-    @BindView(R2.id.et_email) private EditText etEmail;
-    @BindView(R2.id.et_password) private EditText etPass;
-    @BindView(R2.id.tv_forgot) private TextView tvForgot;
-    @BindView(R2.id.layout_register) private View layoutRegister;
-    @BindView(R2.id.layout_login) private View layoutLogin;
+    @BindView(R2.id.et_email) EditText etEmail;
+    @BindView(R2.id.et_password) EditText etPass;
+    @BindView(R2.id.tv_forgot) TextView tvForgot;
+    @BindView(R2.id.layout_register) View layoutRegister;
+    @BindView(R2.id.layout_login) View layoutLogin;
     private Snackbar bar;
     private ProgressDialog mDialog;
 
@@ -67,7 +67,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         mPresenter.loginClicked(etEmail.getText().toString(), etPass.getText().toString());
     }
 
-    @OnClick(R.id.layout_login)
+    @OnClick(R.id.tv_forgot)
     public void forgotPassClicked(View view){
         mPresenter.forgotPasswordClicked();
     }

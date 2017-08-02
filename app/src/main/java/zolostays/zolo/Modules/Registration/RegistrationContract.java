@@ -7,6 +7,9 @@ package zolostays.zolo.Modules.Registration;
 public interface RegistrationContract {
 
     interface View {
+        void showSnackbarError();
+        void hideSnackbar();
+
         //errors
         void showErrorOnPhone();
         void showErrorOnPassword();

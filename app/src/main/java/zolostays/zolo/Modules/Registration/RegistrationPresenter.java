@@ -1,7 +1,13 @@
 package zolostays.zolo.Modules.Registration;
 
+import android.content.SharedPreferences;
+
 import javax.inject.Inject;
 
+import zolostays.zolo.Data.Repo.UserDataSource;
+import zolostays.zolo.Data.Repo.UserObject;
+import zolostays.zolo.Data.Repo.UserRepo;
+import zolostays.zolo.Modules.Login.LoginContract;
 import zolostays.zolo.Utils.OnProcessFinishedCallback;
 
 /**
@@ -10,40 +16,51 @@ import zolostays.zolo.Utils.OnProcessFinishedCallback;
 
 public class RegistrationPresenter implements RegistrationContract.Presenter, OnProcessFinishedCallback {
 
-    private RegistrationContract.View view;
+    private RegistrationContract.View mView;
+    UserDataSource mUserRepo;
+    SharedPreferences mSharedPreferences;
 
-    @Inject RegistrationPresenter(RegistrationContract.View loginView) {
-        this.view = loginView;
+    @Inject RegistrationPresenter(UserRepo userRepo, SharedPreferences sPrefs, RegistrationContract.View loginView) {
+        this.mView = loginView;
+        this.mUserRepo = userRepo;
+        this.mSharedPreferences = sPrefs;
     }
 
     @Override
     public void onError() {
-        view.dismissDialog();
+        mView.dismissDialog();
     }
 
     @Override
     public void onSuccess() {
-        view.dismissDialog();
-        view.openLoginPage();
+        mView.dismissDialog();
+        mView.openLoginPage();
     }
 
     @Override
     public void inputModified(String phone, String email, String name, String pass) {
+        mView.hideSnackbar();
 //        switch(interactor.validateInput(phone, email, name, pass)) {
-//            case PASSWORD: view.showErrorOnPassword(); break;
-//            case EMAIL: view.showErrorOnEmail(); break;
-//            case NAME: view.showErrorOnName();break;
-//            case PHONE: view.showErrorOnPhone();break;
+//            case PASSWORD: mView.showErrorOnPassword(); break;
+//            case EMAIL: mView.showErrorOnEmail(); break;
+//            case NAME: mView.showErrorOnName();break;
+//            case PHONE: mView.showErrorOnPhone();break;
 //        }
     }
 
     @Override
     public void registerClicked(String phone, String email, String name, String pass) {
+        UserObject userObject = new UserObject(phone, email, name, pass);
+        if(mUserRepo.createUser(userObject) == -1) {
+            mView.showSnackbarError();
+        } else {
+            mView.openLoginPage();
+        }
     }
 
     @Override
     public void loginClicked() {
-        view.openLoginPage();
+        mView.openLoginPage();
     }
 
 }

@@ -1,7 +1,13 @@
 package zolostays.zolo.Modules.Registration;
 
+import android.content.SharedPreferences;
+
 import dagger.Module;
 import dagger.Provides;
+import zolostays.zolo.Data.Repo.UserRepo;
+import zolostays.zolo.Modules.Login.LoginContract;
+import zolostays.zolo.Modules.Login.LoginPresenter;
+import zolostays.zolo.Utils.ActivityScope;
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.
@@ -21,8 +27,9 @@ public class RegistrationModule {
         return mView;
     }
 
-//    @Provides
-//    public RegistrationPresenter providePresenter(RegistrationContract.View view) {
-//        return new RegistrationPresenter(view);
-//    }
+    @ActivityScope
+    @Provides
+    RegistrationPresenter providePresenter(SharedPreferences sprefs, UserRepo repo, RegistrationContract.View view) {
+        return new RegistrationPresenter(repo, sprefs, view);
+    }
 }

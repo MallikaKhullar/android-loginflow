@@ -32,7 +32,7 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPassCo
 
     /*--------Views-------*/
     @BindView(R2.id.et_email) EditText etEmail;
-    @BindView(R2.id.layout_reset) private View layoutReset;
+    @BindView(R2.id.layout_reset) View layoutReset;
     private Dialog progressDialog;
     private Snackbar bar;
 

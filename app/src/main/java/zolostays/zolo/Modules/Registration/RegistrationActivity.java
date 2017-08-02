@@ -3,6 +3,7 @@ package zolostays.zolo.Modules.Registration;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
@@ -30,8 +31,9 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     @BindView(R2.id.et_name) EditText etName;
     @BindView(R2.id.et_email) EditText etEmail;
     @BindView(R2.id.tv_login) TextView tvLogin;
-    @BindView(R2.id.layout_register) private View layoutRegister;
+    @BindView(R2.id.layout_register) View layoutRegister;
     private ProgressDialog progressDialog;
+    private Snackbar bar;
 
 
     @Override
@@ -64,19 +66,20 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
 
-    @OnTextChanged(value = {R.id.et_name, R.id.et_email, R.id.et_phone, R.id.et_password}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    void afterPasswordInput(EditText editText, Editable editable) {
-        editText.setError(null);
-        mRegistrationPresenter.inputModified(etPhone.getText().toString(),
-                etEmail.getText().toString(),
-                etName.getText().toString(),
-                etName.getText().toString());
-    }
+//    @OnTextChanged(value = {R.id.et_name, R.id.et_email, R.id.et_phone, R.id.et_password}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+//    void afterPasswordInput(EditText editText, Editable editable) {
+//        editText.setError(null);
+//        mRegistrationPresenter.inputModified(etPhone.getText().toString(),
+//                etEmail.getText().toString(),
+//                etName.getText().toString(),
+//                etName.getText().toString());
+//    }
 
     @Override
     public void openLoginPage() {
         startActivity(new Intent(this, LoginActivity.class));
     }
+
 
     @Override
     public void showErrorOnPhone() {
@@ -106,6 +109,18 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     @Override
     public void showDialog() {
         if(!RegistrationActivity.this.isFinishing()) progressDialog = ProgressDialog.show(this, "Registering user ...", null);
+    }
+
+
+    @Override
+    public void showSnackbarError() {
+        bar = Snackbar.make(tvLogin, "Error: Invalid credentials!", Snackbar.LENGTH_LONG);
+        bar.show();
+    }
+
+    @Override
+    public void hideSnackbar() {
+        if(bar!=null) bar.dismiss();
     }
 
     @Override
