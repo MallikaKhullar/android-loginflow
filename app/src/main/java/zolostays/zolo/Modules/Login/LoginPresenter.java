@@ -33,7 +33,7 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
 
 
     @Override
-    public void loginClicked(String email, String pass) {
+    public void loginClicked(String email, final String pass) {
 
         switch(InputValidation.validateInputForLogin(email, pass)) {
             case PASSWORD: mView.showErrorOnPassword(); return;
@@ -43,16 +43,28 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
         mUserRepo.getUserWithEmail(email, new UserDataSource.GetUserCallback() {
             @Override
             public void onUserFound(UserObject user) {
-                mSharedPreferences.edit().putBoolean("logged-in", true).apply();
-                mView.openProfilePage();
+                if (!InputValidation.doPasswordsMatch(pass, user.getPass())) {
+                    invalidLoginAttempt();
+                } else {
+                    validLoginAttempt();
+                }
             }
 
             @Override
             public void onDataNotAvailable() {
-                mView.showSnackbarError();
-                mSharedPreferences.edit().putBoolean("logged-in", false).apply();
+                invalidLoginAttempt();
             }
         });
+    }
+
+    private void invalidLoginAttempt(){
+        mView.showSnackbarError();
+        mSharedPreferences.edit().putBoolean("logged-in", false).apply();
+    }
+
+    private void validLoginAttempt() {
+        mSharedPreferences.edit().putBoolean("logged-in", true).apply();
+        mView.openProfilePage();
     }
 
     @Override
