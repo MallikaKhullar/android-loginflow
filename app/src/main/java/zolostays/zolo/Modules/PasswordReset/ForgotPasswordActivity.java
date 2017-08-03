@@ -108,5 +108,6 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPassCo
     @Override
     public void openLoginPage() {
         startActivity(new Intent(this, ForgotPasswordActivity.class));
+        this.finish();
     }
 }

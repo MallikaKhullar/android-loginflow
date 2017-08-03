@@ -78,6 +78,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     @Override
     public void openLoginPage() {
         startActivity(new Intent(this, LoginActivity.class));
+        this.finish();
     }
 
 

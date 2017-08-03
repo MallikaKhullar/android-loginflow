@@ -19,6 +19,7 @@ import butterknife.OnTextChanged;
 import zolostays.zolo.ApplicationComponent;
 import zolostays.zolo.BaseActivity;
 import zolostays.zolo.Modules.Profile.ProfileActivity;
+import zolostays.zolo.Modules.Registration.RegistrationActivity;
 import zolostays.zolo.R;
 import zolostays.zolo.R2;
 
@@ -131,8 +132,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     /*--------Flow-------*/
     @Override
     public void openRegistrationPage() {
-        Intent i = new Intent(this, zolostays.zolo.Modules.Registration.RegistrationActivity.class);
-        startActivity(i);
+        startActivity(new Intent(this, RegistrationActivity.class));
     }
 
     @Override
@@ -144,7 +144,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void openProfilePage() {
-        Intent i = new Intent(this, ProfileActivity.class);
-        startActivity(i);
+        startActivity(new Intent(this, ProfileActivity.class));
+        this.finish();
     }
 }
