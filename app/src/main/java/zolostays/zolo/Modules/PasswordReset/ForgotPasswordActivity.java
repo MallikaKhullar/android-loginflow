@@ -2,11 +2,13 @@ package zolostays.zolo.Modules.PasswordReset;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -110,7 +112,13 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPassCo
     /*--------Flow-------*/
     @Override
     public void openLoginPage() {
-        startActivity(new Intent(this, ForgotPasswordActivity.class));
         this.finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etEmail.getWindowToken(), 0);
     }
 }

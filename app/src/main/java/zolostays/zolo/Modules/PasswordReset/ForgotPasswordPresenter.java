@@ -6,11 +6,10 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
-import rsg.mailchimp.api.MailChimpApiException;
-import rsg.mailchimp.api.lists.ListMethods;
 import zolostays.zolo.Data.Repo.UserDataSource;
 import zolostays.zolo.Data.Repo.UserRepo;
 import zolostays.zolo.Modules.Login.LoginContract;
+import zolostays.zolo.Utils.InputValidation;
 import zolostays.zolo.Utils.OnProcessFinishedCallback;
 import zolostays.zolo.Utils.Services.EmailService;
 
@@ -39,7 +38,10 @@ public class ForgotPasswordPresenter implements ForgotPassContract.Presenter, On
     @Override
     public void resetClicked(String email) {
         mView.hideSnackbar();
-        mEmailService.sendEmail(email, this);
+        if(InputValidation.isValidEmail(email))
+            mEmailService.sendEmail(email, this);
+        else
+            mView.showErrorOnEmail();
     }
 
     @Override
