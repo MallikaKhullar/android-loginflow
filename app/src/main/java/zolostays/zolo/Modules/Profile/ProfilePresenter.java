@@ -13,6 +13,7 @@ import zolostays.zolo.Data.Repo.UserRepo;
 import zolostays.zolo.Modules.Login.LoginActivity;
 import zolostays.zolo.Modules.Login.LoginContract;
 import zolostays.zolo.Modules.Login.LoginPresenter;
+import zolostays.zolo.Utils.InputValidation;
 import zolostays.zolo.Utils.OnProcessFinishedCallback;
 
 /**
@@ -20,7 +21,7 @@ import zolostays.zolo.Utils.OnProcessFinishedCallback;
  */
 
 
-public class ProfilePresenter implements ProfileContract.Presenter, OnProcessFinishedCallback {
+public class ProfilePresenter implements ProfileContract.Presenter {
 
     public static String LOGIN_STATUS = "login_status";
     public static String STORED_USER = "stored_user";
@@ -36,18 +37,15 @@ public class ProfilePresenter implements ProfileContract.Presenter, OnProcessFin
     }
 
 
-    @Override
-    public void onError() {
-
-    }
-
-    @Override
-    public void onSuccess() {
-
-    }
 
     @Override
     public void updateUserInfo(UserObject user) {
+
+        switch(InputValidation.validateUpdateForm(user.getName(), user.getPhone())) {
+            case PHONE: mView.showErrorOnPhone(); return;
+            case NAME: mView.showErrorOnName(); return;
+        }
+
         mUserRepo.updateUserDetails(getCurrentUser().getId(), user.getEmail(), user.getName(), user.getPhone());
     }
 
@@ -65,6 +63,11 @@ public class ProfilePresenter implements ProfileContract.Presenter, OnProcessFin
         } catch (JSONException e) {
             return null;
         }
+    }
+
+    @Override
+    public void inputModified(String name, String phone) {
+        mView.clearErrors();
     }
 
 }
