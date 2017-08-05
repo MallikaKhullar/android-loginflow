@@ -13,11 +13,14 @@ public interface ProfileContract {
         void hideUpdateButton();
         void showUpdateButton();
         void openLoginPage();
+        void showErrorOnName();
+        void showErrorOnPhone();
     }
 
     interface Presenter {
         void updateUserInfo(UserObject user);
         void logOut();
         UserObject getCurrentUser();
+        void inputModified(String name, String phone);
     }
 }
