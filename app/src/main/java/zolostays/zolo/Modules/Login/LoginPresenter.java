@@ -31,12 +31,12 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
 
     @Override
     public void loginClicked(String email, final String pass) {
-
         switch(InputValidation.validateInputForLogin(email, pass)) {
             case PASSWORD: mView.showErrorOnPassword(); return;
             case EMAIL: mView.showErrorOnEmail(); return;
         }
 
+        mView.showDialog();
         mUserRepo.getUserWithEmail(email, new UserDataSource.GetUserCallback() {
             @Override
             public void onUserFound(UserObject user) {
@@ -55,6 +55,7 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
     }
 
     private void invalidLoginAttempt(){
+        mView.dismissDialog();
         mView.showSnackbarError();
         mSharedPreferences.edit().putBoolean(LOGIN_STATUS, false).apply();
     }
@@ -62,6 +63,7 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
     private void validLoginAttempt(UserObject user) {
         mSharedPreferences.edit().putBoolean(LOGIN_STATUS, true).apply();
         mSharedPreferences.edit().putString(STORED_USER, user.getJsonObject().toString()).apply();
+        mView.dismissDialog();
         mView.openProfilePage();
     }
 

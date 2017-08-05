@@ -11,13 +11,15 @@ import zolostays.zolo.Data.Repo.UserRepo;
 import zolostays.zolo.Modules.Login.LoginContract;
 import zolostays.zolo.Utils.InputValidation;
 import zolostays.zolo.Utils.OnProcessFinishedCallback;
+import zolostays.zolo.Utils.OnProcessFinishedErrorMsgCallback;
+import zolostays.zolo.Utils.PasswordGenerator;
 import zolostays.zolo.Utils.Services.EmailService;
 
 /**
  * Created by mallikapriyakhullar on 01/08/17.
  */
 
-public class ForgotPasswordPresenter implements ForgotPassContract.Presenter, OnProcessFinishedCallback {
+public class ForgotPasswordPresenter implements ForgotPassContract.Presenter, OnProcessFinishedErrorMsgCallback {
 
     ForgotPassContract.View mView;
     UserRepo mUserRepo;
@@ -38,10 +40,13 @@ public class ForgotPasswordPresenter implements ForgotPassContract.Presenter, On
     @Override
     public void resetClicked(String email) {
         mView.hideSnackbar();
-        if(InputValidation.isValidEmail(email))
-            mEmailService.sendEmail(email, this);
-        else
+        if(InputValidation.isValidEmail(email)) {
+            String randPassword = new PasswordGenerator(8).nextString();
+            mUserRepo.updateUserDetails(email, randPassword);
+            mEmailService.sendEmail(email, randPassword, this);
+        }else{
             mView.showErrorOnEmail();
+        }
     }
 
     @Override
@@ -56,9 +61,9 @@ public class ForgotPasswordPresenter implements ForgotPassContract.Presenter, On
     }
 
     @Override
-    public void onError() {
+    public void onError(String msg) {
         //email didn't go properly
-        mView.showSnackbarError();
+        mView.showSnackbarError(msg);
     }
 
     @Override

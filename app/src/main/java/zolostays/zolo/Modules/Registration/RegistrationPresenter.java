@@ -10,6 +10,7 @@ import zolostays.zolo.Data.Repo.UserDataSource;
 import zolostays.zolo.Data.Repo.UserObject;
 import zolostays.zolo.Data.Repo.UserRepo;
 import zolostays.zolo.Modules.Login.LoginContract;
+import zolostays.zolo.Utils.InputValidation;
 import zolostays.zolo.Utils.OnProcessFinishedCallback;
 
 /**
@@ -42,16 +43,18 @@ public class RegistrationPresenter implements RegistrationContract.Presenter, On
     @Override
     public void inputModified(String phone, String email, String name, String pass) {
         mView.hideSnackbar();
-//        switch(interactor.validateInput(phone, email, name, pass)) {
-//            case PASSWORD: mView.showErrorOnPassword(); break;
-//            case EMAIL: mView.showErrorOnEmail(); break;
-//            case NAME: mView.showErrorOnName();break;
-//            case PHONE: mView.showErrorOnPhone();break;
-//        }
     }
 
     @Override
     public void registerClicked(String phone, String email, String name, String pass) {
+
+        switch(InputValidation.validateInput(phone, email, name, pass)) {
+            case PASSWORD: mView.showErrorOnPassword(); return;
+            case EMAIL: mView.showErrorOnEmail(); return;
+            case NAME: mView.showErrorOnName(); return;
+            case PHONE: mView.showErrorOnPhone(); return;
+        }
+
         UserObject userObject = new UserObject(phone, email, name, pass, UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
         if(mUserRepo.createUser(userObject) == -1) {
             mView.showSnackbarError();
