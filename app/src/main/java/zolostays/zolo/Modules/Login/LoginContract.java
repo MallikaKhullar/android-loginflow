@@ -32,5 +32,7 @@ public interface LoginContract {
         void forgotPasswordClicked();
 
         void inputModified(String phone, String pass);
+
+        void checkForLogin();
     }
 }

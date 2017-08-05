@@ -45,6 +45,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         ButterKnife.bind(this);
         ((TextView)layoutRegister.findViewById(R.id.text)).setText("Create Account");
         ((TextView)layoutLogin.findViewById(R.id.text)).setText("Log In");
+        mPresenter.checkForLogin();
     }
 
     @Override
