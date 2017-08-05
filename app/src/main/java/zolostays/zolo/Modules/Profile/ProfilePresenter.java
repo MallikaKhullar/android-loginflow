@@ -46,7 +46,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             case NAME: mView.showErrorOnName(); return;
         }
 
-        mUserRepo.updateUserDetails(getCurrentUser().getId(), user.getEmail(), user.getName(), user.getPhone());
+        user.setId(getCurrentUser().getId());
+
+        mUserRepo.updateUserDetails(user.getId(), user.getEmail(), user.getName(), user.getPhone());
+        mSharedPreferences.edit().putString(STORED_USER, user.getJsonObject().toString()).apply();
+        mView.hideUpdateButton();
     }
 
     @Override
