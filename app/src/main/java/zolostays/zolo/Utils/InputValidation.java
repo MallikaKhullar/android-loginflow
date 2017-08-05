@@ -41,8 +41,8 @@ public class InputValidation {
 
     public static InvalidType validateInput(String phone, String email, String name, String password) {
         if (!isValidEmail(email)) return InvalidType.EMAIL;
-        if (!isValidName(name)) return InvalidType.NAME;
         if (!isValidPhone(phone)) return InvalidType.PHONE;
+        if (!isValidName(name)) return InvalidType.NAME;
         if (!isValidPassword(password)) return InvalidType.PASSWORD;
         return InvalidType.VALID;
     }
@@ -50,6 +50,12 @@ public class InputValidation {
     public static InvalidType validateInputForLogin(String email, String password) {
         if (!isValidEmail(email)) return InvalidType.EMAIL;
         if (!isEmptyPassword(password)) return InvalidType.PASSWORD;
+        return InvalidType.VALID;
+    }
+
+    public static InvalidType validateUpdateForm(String name, String phone) {
+        if (!isValidPhone(phone)) return InvalidType.PHONE;
+        if (!isValidName(name)) return InvalidType.NAME;
         return InvalidType.VALID;
     }
 }
