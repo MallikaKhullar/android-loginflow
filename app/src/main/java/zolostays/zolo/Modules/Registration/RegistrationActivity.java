@@ -34,6 +34,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     @BindView(R2.id.et_email) EditText etEmail;
     @BindView(R2.id.tv_login) TextView tvLogin;
     @BindView(R2.id.layout_register) View layoutRegister;
+    @BindView(R2.id.ll_container) View llContainter;
     private ProgressDialog progressDialog;
     private Snackbar bar;
 
@@ -44,10 +45,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
         ((TextView)layoutRegister.findViewById(R.id.text)).setText("Register");
-        etPass.clearFocus();
-        etName.clearFocus();
-        etPhone.clearFocus();
-        etEmail.clearFocus();
+        llContainter.requestFocus();
     }
 
     @Override
