@@ -38,6 +38,7 @@ public class ProfileActivity  extends BaseActivity implements ProfileContract.Vi
     @BindView(R2.id.et_email) EditText etEmail;
     @BindView(R2.id.layout_update) View layoutUpdate;
     @BindView(R2.id.layout_logout) View layoutLogout;
+    @BindView(R2.id.ll_container) View llContainer;
 
 
     @OnTextChanged(value = R.id.et_name, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
@@ -96,7 +97,10 @@ public class ProfileActivity  extends BaseActivity implements ProfileContract.Vi
 
     @OnClick(R.id.layout_update)
     public void updateClicked(View view){
-        hideUpdateButton();
+        etName.clearFocus();
+        etPhone.clearFocus();
+        etEmail.clearFocus();
+        llContainer.requestFocus();
         mProfilePresenter.updateUserInfo(
                 new UserObject()
                 .setPhone(etPhone.getText().toString())
