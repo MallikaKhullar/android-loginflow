@@ -18,4 +18,5 @@ public interface UserDataSource {
     void getUserWithEmail(@NonNull String email, @NonNull GetUserCallback callback); //async
     long createUser(@NonNull UserObject user);
     void updateUserDetails(@NonNull String email, @NonNull String pass);
+    void updateUserDetails(@NonNull Long id, @NonNull String email, @NonNull String name, @NonNull String phone);
 }

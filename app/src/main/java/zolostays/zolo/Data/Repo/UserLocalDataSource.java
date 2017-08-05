@@ -93,5 +93,20 @@ public class UserLocalDataSource implements UserDataSource {
         db.update(SQLiteHandler.USER_TABLE_NAME, values, selection, selectionArgs);
         db.close();
     }
+
+    @Override
+    public void updateUserDetails(@NonNull Long id, @NonNull String email, @NonNull String name, @NonNull String phone) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SQLiteHandler.USER_COL_EMAIL, email);
+        values.put(SQLiteHandler.USER_COL_NAME, name);
+        values.put(SQLiteHandler.USER_COL_PHONE, phone);
+
+        String selection = SQLiteHandler.USER_COL_ID + "=" + id;
+
+        db.update(SQLiteHandler.USER_TABLE_NAME, values, selection, null);
+        db.close();
+    }
 }
 

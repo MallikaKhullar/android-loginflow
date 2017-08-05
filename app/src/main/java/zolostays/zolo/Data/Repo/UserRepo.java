@@ -37,6 +37,15 @@ public class UserRepo implements UserDataSource {
     }
 
     @Override
+    public void updateUserDetails(@NonNull Long id, @NonNull String email, @NonNull String name, @NonNull String phone) {
+        checkNotNull(id);
+        checkNotNull(email);
+        checkNotNull(name);
+        checkNotNull(phone);
+        musersLocalDataSource.updateUserDetails(id, email, name, phone);
+    }
+
+    @Override
     public UserObject getUserWithEmail(@NonNull String email) { //sync
         checkNotNull(email);
         return musersLocalDataSource.getUserWithEmail(email);
