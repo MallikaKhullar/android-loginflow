@@ -1,12 +1,14 @@
 package zolostays.zolo.Modules.Login;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -147,5 +149,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     public void openProfilePage() {
         startActivity(new Intent(this, ProfileActivity.class));
         this.finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etEmail.getWindowToken(), 0);
     }
 }

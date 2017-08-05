@@ -1,11 +1,13 @@
 package zolostays.zolo.Modules.Registration;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -120,6 +122,13 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         etName.setError(null);
         etPass.setError(null);
         etPhone.setError(null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etPhone.getWindowToken(), 0);
     }
 }
 

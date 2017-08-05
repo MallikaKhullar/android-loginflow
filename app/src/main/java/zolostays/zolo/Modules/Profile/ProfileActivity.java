@@ -1,10 +1,13 @@
 package zolostays.zolo.Modules.Profile;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.text.Editable;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,6 +16,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import zolostays.zolo.ApplicationComponent;
 import zolostays.zolo.BaseActivity;
 import zolostays.zolo.Data.Repo.UserObject;
@@ -36,6 +40,19 @@ public class ProfileActivity  extends BaseActivity implements ProfileContract.Vi
     @BindView(R2.id.layout_logout) View layoutLogout;
 
 
+    @OnTextChanged(value = R.id.et_name, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    void afterNameInput(Editable editable) {
+        etName.setError(null);
+        showUpdateButton();
+        mProfilePresenter.inputModified(etName.getText().toString(), etPhone.getText().toString());
+    }
+    @OnTextChanged(value = R.id.et_phone, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    void afterPhoneInput(Editable editable) {
+        etPhone.setError(null);
+        showUpdateButton();
+        mProfilePresenter.inputModified(etName.getText().toString(), etPhone.getText().toString());
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +61,8 @@ public class ProfileActivity  extends BaseActivity implements ProfileContract.Vi
         ButterKnife.bind(this);
         ((TextView)layoutUpdate.findViewById(R.id.text)).setText("Update");
         ((TextView)layoutLogout.findViewById(R.id.text)).setText("Logout");
-        hideUpdateButton();
         inflateUsingCurrentUser();
+        hideUpdateButton();
     }
 
 
@@ -101,12 +118,29 @@ public class ProfileActivity  extends BaseActivity implements ProfileContract.Vi
         this.finish();
     }
 
+    @Override
+    public void showErrorOnName() {
+        etName.setError("Please enter valid name");
+    }
+
+    @Override
+    public void showErrorOnPhone() {
+        etPhone.setError("Please enter valid phone");
+    }
+
 
     @Override
     public void clearErrors() {
         etEmail.setError(null);
         etName.setError(null);
         etPhone.setError(null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etPhone.getWindowToken(), 0);
     }
 }
 
