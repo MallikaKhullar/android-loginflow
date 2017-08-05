@@ -98,8 +98,8 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPassCo
     }
 
     @Override
-    public void showSnackbarError() {
-        bar = Snackbar.make(layoutReset, "Unable to send email, try again", Snackbar.LENGTH_LONG);
+    public void showSnackbarError(String msg) {
+        bar = Snackbar.make(layoutReset, msg, Snackbar.LENGTH_LONG);
         bar.show();
     }
 

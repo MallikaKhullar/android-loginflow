@@ -13,7 +13,7 @@ public interface ForgotPassContract {
         //error
         void showErrorOnEmail();
         void clearErrors();
-        void showSnackbarError();
+        void showSnackbarError(String msg);
         void hideSnackbar();
 
 
@@ -23,6 +23,7 @@ public interface ForgotPassContract {
 
         //flow
         void openLoginPage();
+
     }
 
     interface Presenter {
