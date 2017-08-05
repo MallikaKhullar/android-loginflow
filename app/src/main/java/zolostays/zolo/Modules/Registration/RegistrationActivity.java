@@ -44,6 +44,10 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
         ((TextView)layoutRegister.findViewById(R.id.text)).setText("Register");
+        etPass.clearFocus();
+        etName.clearFocus();
+        etPhone.clearFocus();
+        etEmail.clearFocus();
     }
 
     @Override
