@@ -27,9 +27,9 @@ public class InputValidation {
                 && !password.isEmpty()
                 && password.length() >= 6
                 && password.length() <= 10
-                && password.matches(".+[A-Z].+")
-                && password.matches(".+[a-z].+")
-                && password.matches(".+[1-9].+")) {
+                && password.matches(".*[A-Z].*")
+                && password.matches(".*[a-z].*")
+                && password.matches(".*[1-9].*")) {
             return true;
         }
         return false;
