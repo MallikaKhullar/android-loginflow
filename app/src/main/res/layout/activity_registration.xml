@@ -60,6 +60,8 @@
                 android:layout_width="match_parent"
                 android:maxLength="30"
                 android:lines="1"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_email_white_24px"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/ColorPrimary"
                 android:inputType="textEmailAddress"
@@ -79,6 +81,8 @@
                 android:layout_height="wrap_content"
                 android:maxLength="20"
                 android:maxLines="1"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_phone_white_24px"
                 android:textColorHint="@color/ColorPrimary"
                 android:inputType="textEmailAddress"
                 android:hint="PHONE NUMBER" />
@@ -97,7 +101,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="20"
+                android:drawablePadding="5dp"
                 android:maxLines="1"
+                android:drawableLeft="@drawable/ic_sort_white_24px"
                 android:textColorHint="@color/ColorPrimary"
                 android:inputType="textEmailAddress"
                 android:hint="NAME" />
@@ -113,11 +119,14 @@
             android:id="@+id/wrapper_pass"
             zoloLoginMainApplication:passwordToggleEnabled="true"
             android:layout_marginBottom="8dp">
+
             <EditText android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:maxLength="20"
+                android:paddingLeft="30dp"
+                android:drawablePadding="5dp"
                 android:textColorHint="@color/ColorPrimary"
                 android:inputType="textPassword"
                 android:hint="PASSWORD"/>
