@@ -1,15 +1,14 @@
 package zolostays.zolo.Utils.Services;
 
 import android.content.Context;
-
-import java.util.Random;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import javax.inject.Inject;
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
 
-import rsg.mailchimp.api.MailChimpApiException;
-import rsg.mailchimp.api.lists.ListMethods;
-import zolostays.zolo.Data.Repo.UserDataSource;
-import zolostays.zolo.Utils.Local;
+import zolostays.zolo.Data.Repo.Mail;
 import zolostays.zolo.Utils.OnProcessFinishedCallback;
 
 /**
@@ -24,53 +23,45 @@ public class EmailService {
         mContext = context;
     }
 
-    public void sendEmail(String email, OnProcessFinishedCallback callback) {
+    class SendEmailAsyncTask extends AsyncTask<String, Object, Boolean> {
+        Mail m = new Mail();
+        private OnProcessFinishedCallback listener;
 
-        ListMethods listMethods = new ListMethods(mContext);
-        String message = "Signup successful!";
+        public SendEmailAsyncTask(OnProcessFinishedCallback listener){
+            this.listener=listener;
+        }
 
-        try {
-            listMethods.listSubscribe(String.format("Your new password is {}", getRandomPassword()), email);
-            callback.onSuccess();
-        } catch (MailChimpApiException e) {
-            callback.onError();
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String[] to = {params[0]};
+            m.set_to(to);
+            m.setBody(String.format("Your new password is %s", params[1]));
+            try {
+                if (m.send()) {
+                    listener.onSuccess();
+                    return true;
+                }
+
+            } catch (AuthenticationFailedException e) {
+                Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
+                listener.onError();
+                return false;
+            } catch (MessagingException e) {
+                Log.e(SendEmailAsyncTask.class.getName(), "Email failed");
+                listener.onError();
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                listener.onError();
+                return false;
+            }
+            return false;
         }
     }
 
-    class PasswordGenerator {
 
-        private final char[] symbols;
-        {
-            StringBuilder tmp = new StringBuilder();
-            for (char ch = '0'; ch <= '9'; ch++) {
-                tmp.append(ch);
-            }
-            for (char ch = 'a'; ch <= 'z'; ch++) {
-                tmp.append(ch);
-            }
-            symbols = tmp.toString().toCharArray();
-        }
-
-        private final Random random = new Random();
-
-        private final char[] buf;
-
-        public PasswordGenerator(int length) {
-            if (length < 1) {
-                throw new IllegalArgumentException("length < 1: " + length);
-            }
-            buf = new char[length];
-        }
-
-        public String nextString() {
-            for (int i = 0; i < buf.length; i++) {
-                buf[i] = symbols[random.nextInt(symbols.length)];
-            }
-            return new String(buf);
-        }
-    }
-
-    private String getRandomPassword(){
-        return new PasswordGenerator(8).nextString();
+    public void sendEmail(final String email, String randPassword, final OnProcessFinishedCallback callback) {
+        SendEmailAsyncTask emailAsyncTask = new SendEmailAsyncTask(callback);
+        emailAsyncTask.execute(email, randPassword);
     }
 }

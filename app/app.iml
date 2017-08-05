@@ -107,6 +107,8 @@
     <orderEntry type="library" exported="" name="javax.inject-1" level="project" />
     <orderEntry type="library" exported="" name="design-25.3.0" level="project" />
     <orderEntry type="library" exported="" name="transition-25.3.0" level="project" />
+    <orderEntry type="library" exported="" name="android-activation-1.5.5" level="project" />
+    <orderEntry type="library" exported="" name="android-mail-1.5.5" level="project" />
     <orderEntry type="library" exported="" name="support-compat-25.3.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-25.3.0" level="project" />
     <orderEntry type="library" exported="" name="dagger-2.9" level="project" />
