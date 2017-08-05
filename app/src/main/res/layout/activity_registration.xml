@@ -45,23 +45,6 @@
             android:gravity="center"
             android:textSize="16dip"/>
 
-        <!-- Phone Number -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-
-            <EditText android:id="@+id/et_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:textColorHint="@color/ColorPrimary"
-                android:inputType="textEmailAddress"
-                android:hint="PHONE NUMBER" />
-
-        </android.support.design.widget.TextInputLayout>
 
         <!-- Email -->
         <android.support.design.widget.TextInputLayout
@@ -80,6 +63,25 @@
                 android:hint="EMAIL" />
 
         </android.support.design.widget.TextInputLayout>
+
+        <!-- Phone Number -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:textColorHint="@color/ColorPrimary"
+                android:inputType="textEmailAddress"
+                android:hint="PHONE NUMBER" />
+
+        </android.support.design.widget.TextInputLayout>
+
 
         <!-- Name -->
         <android.support.design.widget.TextInputLayout
