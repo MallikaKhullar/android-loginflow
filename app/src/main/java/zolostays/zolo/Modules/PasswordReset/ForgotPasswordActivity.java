@@ -56,8 +56,11 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPassCo
     }
 
     /*--------Events-------*/
-    @OnClick(R.id.layout_reset) public void resetClicked(View view){
+    @OnClick(R.id.tv_login) public void loginClicked(View view){
         mPresenter.loginClicked();
+    }
+    @OnClick(R.id.layout_reset) public void resetClicked(View view){
+        mPresenter.resetClicked(etEmail.getText().toString());
     }
 
     @OnTextChanged(value = R.id.et_email, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)

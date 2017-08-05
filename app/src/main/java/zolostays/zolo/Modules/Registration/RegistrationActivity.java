@@ -66,18 +66,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
 
-//    @OnTextChanged(value = {R.id.et_name, R.id.et_email, R.id.et_phone, R.id.et_password}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-//    void afterPasswordInput(EditText editText, Editable editable) {
-//        editText.setError(null);
-//        mRegistrationPresenter.inputModified(etPhone.getText().toString(),
-//                etEmail.getText().toString(),
-//                etName.getText().toString(),
-//                etName.getText().toString());
-//    }
-
     @Override
     public void openLoginPage() {
-        startActivity(new Intent(this, LoginActivity.class));
         this.finish();
     }
 

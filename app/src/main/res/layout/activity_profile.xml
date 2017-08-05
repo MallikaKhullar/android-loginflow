@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zoloLoginMainApplication="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/ColorPrimary"
+    android:background="@color/white"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
@@ -13,7 +13,6 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,71 +20,57 @@
             android:paddingBottom="10dp"
             android:textAllCaps="true"
             android:text="zolostays"
-            android:textColor="@color/white"
+            android:textColor="@color/ColorPrimary"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="30dip"/>
 
-
-        <!-- Phone Number -->
-        <android.support.design.widget.TextInputLayout
+        <EditText android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:maxLength="20"
+            android:maxLines="1"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:textColorHint="@color/ColorPrimary"
+            android:inputType="none"
+            android:hint="PHONE NUMBER" />
 
-            <EditText android:id="@+id/et_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:textColorHint="@color/ColorPrimary"
-                android:inputType="textEmailAddress"
-                android:hint="PHONE NUMBER" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <!-- Email -->
-        <android.support.design.widget.TextInputLayout
+        <EditText android:id="@+id/et_email"
             android:layout_width="match_parent"
+            android:maxLength="30"
+            android:lines="1"
+            android:background="@android:color/transparent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:padding="10dp"
+            android:textColorHint="@color/ColorPrimary"
+            android:inputType="none"
+            android:hint="EMAIL" />
 
-            <EditText android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:maxLength="30"
-                android:lines="1"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/ColorPrimary"
-                android:inputType="textEmailAddress"
-                android:hint="EMAIL" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <!-- Name -->
-        <android.support.design.widget.TextInputLayout
+        <EditText android:id="@+id/et_name"
             android:layout_width="match_parent"
+            android:background="@android:color/transparent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-
-            <EditText android:id="@+id/et_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:textColorHint="@color/ColorPrimary"
-                android:inputType="textEmailAddress"
-                android:hint="NAME" />
-
-        </android.support.design.widget.TextInputLayout>
+            android:padding="10dp"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColorHint="@color/ColorPrimary"
+            android:inputType="none"
+            android:hint="NAME" />
 
         <include
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
             android:id="@+id/layout_update"
+            layout="@layout/item_secondary_button" />
+
+        <include
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:id="@+id/layout_logout"
             layout="@layout/item_primary_button" />
 
     </LinearLayout>

@@ -2,6 +2,8 @@ package zolostays.zolo.Modules.Registration;
 
 import android.content.SharedPreferences;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 
 import zolostays.zolo.Data.Repo.UserDataSource;
@@ -50,7 +52,7 @@ public class RegistrationPresenter implements RegistrationContract.Presenter, On
 
     @Override
     public void registerClicked(String phone, String email, String name, String pass) {
-        UserObject userObject = new UserObject(phone, email, name, pass);
+        UserObject userObject = new UserObject(phone, email, name, pass, UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
         if(mUserRepo.createUser(userObject) == -1) {
             mView.showSnackbarError();
         } else {

@@ -16,6 +16,9 @@ import zolostays.zolo.Utils.OnProcessFinishedCallback;
 
 public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishedCallback {
 
+    public static String LOGIN_STATUS = "login_status";
+    public static String STORED_USER = "stored_user";
+
     LoginContract.View mView;
     UserDataSource mUserRepo;
     SharedPreferences mSharedPreferences;
@@ -25,12 +28,6 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
         this.mUserRepo = userRepo;
         this.mSharedPreferences = sPrefs;
     }
-
-    /**
-     * This is method injection (Dagger2 will call this by default)
-     * Safe to use because method injection is the last type of injection called
-     */
-
 
     @Override
     public void loginClicked(String email, final String pass) {
@@ -46,7 +43,7 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
                 if (!InputValidation.doPasswordsMatch(pass, user.getPass())) {
                     invalidLoginAttempt();
                 } else {
-                    validLoginAttempt();
+                    validLoginAttempt(user);
                 }
             }
 
@@ -59,11 +56,12 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
 
     private void invalidLoginAttempt(){
         mView.showSnackbarError();
-        mSharedPreferences.edit().putBoolean("logged-in", false).apply();
+        mSharedPreferences.edit().putBoolean(LOGIN_STATUS, false).apply();
     }
 
-    private void validLoginAttempt() {
-        mSharedPreferences.edit().putBoolean("logged-in", true).apply();
+    private void validLoginAttempt(UserObject user) {
+        mSharedPreferences.edit().putBoolean(LOGIN_STATUS, true).apply();
+        mSharedPreferences.edit().putString(STORED_USER, user.getJsonObject().toString()).apply();
         mView.openProfilePage();
     }
 
@@ -91,5 +89,12 @@ public class LoginPresenter implements LoginContract.Presenter, OnProcessFinishe
     public void inputModified(String email, String pass) {
         mView.hideSnackbar();
         mView.clearErrors();
+    }
+
+    @Override
+    public void checkForLogin() {
+        if(mSharedPreferences.getBoolean(LOGIN_STATUS, false)) {
+            mView.openProfilePage();
+        }
     }
 }
