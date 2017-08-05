@@ -41,7 +41,12 @@ public class UserLocalDataSource implements UserDataSource {
     private UserObject getUser(String givenEmail){
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        String[] projection = { SQLiteHandler.USER_COL_EMAIL, SQLiteHandler.USER_COL_PASS};
+        String[] projection = { SQLiteHandler.USER_COL_ID,
+                SQLiteHandler.USER_COL_NAME,
+                SQLiteHandler.USER_COL_PASS,
+                SQLiteHandler.USER_COL_EMAIL,
+                SQLiteHandler.USER_COL_PHONE
+        };
 
         String selection = SQLiteHandler.USER_COL_EMAIL + " LIKE ?";
         String[] selectionArgs = { givenEmail.trim() };
@@ -54,9 +59,12 @@ public class UserLocalDataSource implements UserDataSource {
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
             String email = c.getString(c.getColumnIndexOrThrow(SQLiteHandler.USER_COL_EMAIL));
+            Long id = c.getLong(c.getColumnIndexOrThrow(SQLiteHandler.USER_COL_ID));
+            String phone = c.getString(c.getColumnIndexOrThrow(SQLiteHandler.USER_COL_PHONE));
+            String name = c.getString(c.getColumnIndexOrThrow(SQLiteHandler.USER_COL_NAME));
             String pass =
                     c.getString(c.getColumnIndexOrThrow(SQLiteHandler.USER_COL_PASS));
-            userObject = new UserObject(email,pass);
+            userObject = new UserObject(phone, email, name, pass, id);
         }
         if (c != null) c.close();
         db.close();
@@ -69,6 +77,7 @@ public class UserLocalDataSource implements UserDataSource {
         checkNotNull(user);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(SQLiteHandler.USER_COL_ID, user.getId());
         contentValues.put(SQLiteHandler.USER_COL_NAME, user.getName());
         contentValues.put(SQLiteHandler.USER_COL_EMAIL, user.getEmail());
         contentValues.put(SQLiteHandler.USER_COL_PHONE, user.getPhone());
