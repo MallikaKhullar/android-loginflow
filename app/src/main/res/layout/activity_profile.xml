@@ -2,11 +2,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zoloLoginMainApplication="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@color/ColorPrimary"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
+    <requestFocus/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,23 +22,11 @@
             android:paddingTop="30dp"
             android:paddingBottom="10dp"
             android:textAllCaps="true"
-            android:text="zolostays"
-            android:textColor="@color/ColorPrimary"
+            android:text="MY PROFILE"
+            android:textColor="@color/white"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="30dip"/>
-
-        <EditText android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:background="@android:color/transparent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:maxLength="20"
-            android:textColor="@color/ColorPrimary"
-            android:maxLines="1"
-            android:textColorHint="@color/ColorPrimary"
-            android:inputType="none"
-            android:hint="NAME" />
 
         <EditText android:id="@+id/et_email"
             android:layout_width="match_parent"
@@ -46,24 +35,36 @@
             android:background="@android:color/transparent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:textColor="@color/ColorPrimary"
-            android:textColorHint="@color/ColorPrimary"
-            android:inputType="none"
+            android:textColor="@color/white"
+            android:editable="false"
+            android:enabled="false"
+            android:textColorHint="@color/white"
+            android:inputType="textEmailAddress"
             android:hint="EMAIL" />
+
+        <EditText android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:maxLength="20"
+            android:textColor="@color/white"
+            android:maxLines="1"
+            android:textColorHint="@color/white"
+            android:inputType="textPersonName"
+            android:hint="NAME" />
 
         <EditText android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="20"
             android:maxLines="1"
-            android:textColor="@color/ColorPrimary"
+            android:textColor="@color/white"
             android:background="@android:color/transparent"
             android:padding="10dp"
-            android:textColorHint="@color/ColorPrimary"
-            android:inputType="none"
-            android:enabled="false"
+            android:textColorHint="@color/white"
+            android:inputType="phone"
             android:hint="PHONE NUMBER" />
-
 
         <include
             android:layout_height="wrap_content"
