@@ -75,7 +75,4 @@ public class ForgotPasswordPresenter implements ForgotPassContract.Presenter, On
     private void updateUserDetails(String email, String pass){
         mUserRepo.updateUserDetails(email, pass);
     }
-
-
-
 }

@@ -39,7 +39,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             + USER_COL_NAME + " VARCHAR(20), "
             + USER_COL_EMAIL + " VARCHAR(50), "
             + USER_COL_PHONE + " VARCHAR(50), "
-            + USER_COL_PASS + " VARCHAR(50)) ";
+            + USER_COL_PASS + " VARCHAR(50),"
+            + "unique (" + USER_COL_EMAIL + "))";
 
     public SQLiteHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

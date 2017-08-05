@@ -9,8 +9,8 @@ import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 
 import zolostays.zolo.Data.Repo.Mail;
-import zolostays.zolo.Utils.OnProcessFinishedCallback;
 import zolostays.zolo.Utils.OnProcessFinishedErrorMsgCallback;
+import zolostays.zolo.Utils.Services.GmailSender.GmailSender;
 
 /**
  * Created by mallikapriyakhullar on 02/08/17.
@@ -34,28 +34,16 @@ public class EmailService {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String[] to = {params[0]};
-            m.set_to(to);
-            m.setBody(String.format("Your new password is %s", params[1]));
             try {
-                if (m.send()) {
-                    listener.onSuccess();
-                    return true;
-                } else {
-                    return false;
-                }
-
-            } catch (AuthenticationFailedException e) {
-                Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
-                listener.onError("Password reset to: " + params[1] + " but unable to send email");
-                return false;
-            } catch (MessagingException e) {
-                Log.e(SendEmailAsyncTask.class.getName(), "Email failed");
-                listener.onError("Password reset to: " + params[1] + " but unable to send email");
-                return false;
+                GmailSender sender = new GmailSender("zolozolotrial@gmail.com", "12345zolo");
+                sender.sendMail("Password Updated",
+                        "Your password is now " + params[1],
+                        "zolozolotrial@gmail.com",
+                        params[0]);
+                listener.onSuccess();
+                return true;
             } catch (Exception e) {
-                e.printStackTrace();
-                listener.onError("Password reset to: " + params[1] + " but unable to send email");
+                Log.e("SendMail", e.getMessage(), e);
                 return false;
             }
         }
