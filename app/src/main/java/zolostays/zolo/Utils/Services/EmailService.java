@@ -10,6 +10,7 @@ import javax.mail.MessagingException;
 
 import zolostays.zolo.Data.Repo.Mail;
 import zolostays.zolo.Utils.OnProcessFinishedCallback;
+import zolostays.zolo.Utils.OnProcessFinishedErrorMsgCallback;
 
 /**
  * Created by mallikapriyakhullar on 02/08/17.
@@ -25,9 +26,9 @@ public class EmailService {
 
     class SendEmailAsyncTask extends AsyncTask<String, Object, Boolean> {
         Mail m = new Mail();
-        private OnProcessFinishedCallback listener;
+        private OnProcessFinishedErrorMsgCallback listener;
 
-        public SendEmailAsyncTask(OnProcessFinishedCallback listener){
+        public SendEmailAsyncTask(OnProcessFinishedErrorMsgCallback listener){
             this.listener=listener;
         }
 
@@ -40,27 +41,28 @@ public class EmailService {
                 if (m.send()) {
                     listener.onSuccess();
                     return true;
+                } else {
+                    return false;
                 }
 
             } catch (AuthenticationFailedException e) {
                 Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
-                listener.onError();
+                listener.onError("Password reset to: " + params[1] + " but unable to send email");
                 return false;
             } catch (MessagingException e) {
                 Log.e(SendEmailAsyncTask.class.getName(), "Email failed");
-                listener.onError();
+                listener.onError("Password reset to: " + params[1] + " but unable to send email");
                 return false;
             } catch (Exception e) {
                 e.printStackTrace();
-                listener.onError();
+                listener.onError("Password reset to: " + params[1] + " but unable to send email");
                 return false;
             }
-            return false;
         }
     }
 
 
-    public void sendEmail(final String email, String randPassword, final OnProcessFinishedCallback callback) {
+    public void sendEmail(final String email, String randPassword, final OnProcessFinishedErrorMsgCallback callback) {
         SendEmailAsyncTask emailAsyncTask = new SendEmailAsyncTask(callback);
         emailAsyncTask.execute(email, randPassword);
     }
