@@ -1,5 +1,3 @@
-# Assignment: Login Flow for Zolostays
-
 ### Summary
 Project Author: Mallika Priya Khullar
 
